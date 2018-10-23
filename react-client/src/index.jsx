@@ -2,33 +2,39 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: []
+      rentals: []
     }
+    this.searchProperties = this.searchProperties.bind(this);
   }
 
   componentDidMount() {
-    $.ajax({
-      url: '/items', 
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
+
+  }
+
+  searchProperties(searchQuery) {
+    const post = {
+      method: 'post',
+      url: '/api/properties',
+      body: {
+        q: searchQuery
       }
-    });
+    }
+
+    axios(post).then(response => {
+      console.log(response);
+    })
   }
 
   render () {
     return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
+      <h1>Rentlur</h1>
+      <Search search={this.searchProperties}/>
     </div>)
   }
 }
