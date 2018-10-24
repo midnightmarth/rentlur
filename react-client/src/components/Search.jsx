@@ -37,7 +37,7 @@ class Search extends React.Component {
   // reset state
   reset() {
     this.setState({
-      location: ''
+      location: '',
     });
   }
 
