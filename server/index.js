@@ -17,6 +17,6 @@ app.get('/api', function (req, res) {
 });
 
 app.listen(3000, function() {
-  console.log('listening on port 3000!');
+  console.log(`listening on port 3000!`);
 });
 
