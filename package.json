@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "react": "webpack -d --watch",
-    "server": "nodemon server/index.js"
+    "server": "nodemon server/index.js",
+    "create-db": "createdb rentlur; knex migrate:latest; knex seed:run"
   },
   "author": "Meme Stream Dream Team",
   "license": "ISC",
@@ -36,6 +37,8 @@
     "axios": "^0.18.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.0",
+    "knex": "^0.15.2",
+    "pg": "^7.5.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   }
