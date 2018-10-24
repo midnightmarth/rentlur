@@ -5,13 +5,12 @@ exports.up = function (knex, Promise) {
       table.string('username');
     })
     .createTable('properties', (table) => {
-      table.increments();
-      table.string('location');
-      table.string('name');
-      table.string('price');
-      table.string('source_url');
-      table.string('image_url');
-      table.string('description');
+      table.string('pid').unique();//
+      table.string('location');//
+      table.string('title');
+      table.string('price');//
+      table.string('url');//
+      table.string('date');//
       table.integer('user_id').references('id').inTable('users').notNull()
         .onDelete('cascade');
     });
