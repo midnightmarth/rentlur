@@ -44,11 +44,17 @@ app.post('/api/search', (req, res) => {
     minAsk,
     postal,
     searchDistance,
+    offset: '5'
   };
 
   client.search(searchQuery, '', (err, data) => {
     console.log(data);
-    res.status(201).end(JSON.stringify(data));
+    if(err){
+      throw err
+    } else {
+      res.json(data);
+    }
+
   
   })
 })
