@@ -1,0 +1,23 @@
+exports.up = function (knex, Promise) {
+  return knex.schema
+    .createTable('users', (table) => {
+      table.increments('id').primary();
+      table.string('username');
+    })
+    .createTable('properties', (table) => {
+      table.string('pid').unique();//
+      table.string('location');//
+      table.string('title');
+      table.string('price');//
+      table.string('url');//
+      table.string('date');//
+      table.integer('user_id').references('id').inTable('users').notNull()
+        .onDelete('cascade');
+    });
+};
+
+exports.down = function (knex, Promise) {
+  return Promise.all([
+    knex.schema.dropTableIfExists('properties'),
+    knex.schema.dropTableIfExists('users')]);
+};
