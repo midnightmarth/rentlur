@@ -30,7 +30,11 @@
     "webpack-cli": "^3.1.2",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "cookie-parser": "*",
+    "express-handlebars": "*",
+    "express-session": "*",
+    "express-validator": "*"
   },
   "dependencies": {
     "axios": "^0.18.0",
