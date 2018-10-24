@@ -37,12 +37,13 @@ class App extends React.Component {
     };
     this.searchProperties = this.searchProperties.bind(this);
   }
-  // TODO
+ 
   // to be completed later
   componentDidMount() {
 
   }
-  //requires routes
+
+  // requires routes
   searchProperties(searchQuery) {
     const post = {
       method: 'post',
@@ -51,12 +52,9 @@ class App extends React.Component {
         city: searchQuery,
       },
     };
-  
-    axios(post).then((response) => {
-      console.log('[CLIENT]', response);
-      this.setState({rentals: response.data}, () => {
 
-      });
+    axios(post).then((response) => {
+      this.setState({ rentals: response.data });
     });
   }
 

@@ -28,7 +28,8 @@ class Search extends React.Component {
   // set state on "return" key
   onKeyPress(e) {
     if (e.which === 13) {
-      this.changeState(e.target.value);
+      this.props.search(this.state.location);
+      // this.changeState(e.target.value);
       console.log(this.state.location);
       this.reset();
     }

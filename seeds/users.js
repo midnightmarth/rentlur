@@ -2,7 +2,7 @@
 exports.seed = function (knex, Promise) {
   // Deletes ALL existing entries
   return knex('users').del()
-  .then(() => { return knex('properties').del()})
+    .then(() => knex('properties').del())
     .then(() => knex('users').insert([
       { id: 1, username: 'Nik' },
       { id: 2, username: 'John' },
