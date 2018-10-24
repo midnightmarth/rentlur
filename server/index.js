@@ -54,7 +54,7 @@ app.post('/api/search', (req, res) => {
 })
 
 
-app.listen(1337, function() {
+app.listen(3000, function() {
   console.log('listening on port 3000!');
 });
 
