@@ -1,0 +1,37 @@
+.logo {
+  font-weight: bold;
+  font-size: 1.9em;
+  margin-right: auto;
+  margin-left: 10px;
+  font-family: 'Francois One';
+  color: #ffffff;
+}
+
+.main {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.nav-bar {
+  background-color: #3498DB;
+  margin: 0px;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-family: 'Francois One';
+}
+
+.nav-selected {
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+  margin-right: 5px;
+  font-size: 1.1em;
+}
+
+.nav-unselected {
+  padding: 5px;
+  margin-right: 5px;
+  font-size: 1.1em;
+}
