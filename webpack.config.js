@@ -1,22 +1,42 @@
-var path = require('path');
-var SRC_DIR = path.join(__dirname, '/react-client/src');
-var DIST_DIR = path.join(__dirname, '/react-client/dist');
+const path = require('path');
+
+const SRC_DIR = path.join(__dirname, 'react-client/src');
+const DIST_DIR = path.join(__dirname, 'react-client/dist');
 
 module.exports = {
+  mode: 'development',
   entry: `${SRC_DIR}/index.jsx`,
   output: {
+    path: DIST_DIR,
     filename: 'bundle.js',
-    path: DIST_DIR
   },
-  module : {
-    loaders : [
+  module: {
+    rules: [
       {
-        test : /\.jsx?/,
-        include : SRC_DIR,
-        loader : 'babel-loader',      
-        query: {
-          presets: ['react', 'es2015']
-       }
+        test: /\.jsx?/,
+        include: SRC_DIR,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-env', {
+                  targets: {
+                      browsers: [
+                        'last 2 versions'
+                      ]
+                  },
+                  modules: false // Needed for tree shaking to work.
+                }
+              ],
+              '@babel/preset-react' // https://goo.gl/4aEFV3
+            ],
+            plugins: [
+              '@babel/plugin-proposal-object-rest-spread', // https://goo.gl/LCHWnP
+              '@babel/plugin-proposal-class-properties' // https://goo.gl/TE6TyG
+            ]
+          }
+        }
       }
     ]
   }
