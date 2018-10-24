@@ -8,7 +8,26 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rentals: [],
+      rentals: [{
+        category: 'austin.craigslist.org',
+        date: '2018-10-24 11:04',
+        hasPic: true,
+        location: '(South Central)',
+        pid: '6716480754',
+        price: '$1070',
+        title: "Massive Closets ~ Hardwoods ~ Close To St. Ed's University!",
+        url: 'https://austin.craigslist.org/apa/d/massive-closets-hardwoods/6716480754.html',
+      },
+      {
+        category: 'austin.craigslist.org',
+        date: '2018-10-24 11:04',
+        hasPic: true,
+        location: '(3011 Whitis Ave)',
+        pid: '6726748723',
+        price: '$1150',
+        title: 'Parks and Recreation, Walkabilty 100%',
+        url: 'https://austin.craigslist.org/apa/d/parks-and-recreation/6726748723.html',
+      }],
     };
     this.searchProperties = this.searchProperties.bind(this);
   }
@@ -29,7 +48,6 @@ class App extends React.Component {
     };
 
     axios(post).then((response) => {
-      console.log('[CLIENT]', response);
       this.setState({ rentals: response.data });
     });
   }

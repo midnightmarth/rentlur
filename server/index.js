@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-const client = new craigslist.Client({
+const craigsList = new craigslist.Client({
   baseHost: 'craigslist.com',
   city: 'Austin',
 });
@@ -29,6 +29,37 @@ app.post('/api/signup', (req, res) => {
   res.end();
 });
 //
+
+app.post('/api/search', (req, res) => {
+  console.log('made it into server')
+  const baseHost = req.body.baseHost || 'craigslist.org';
+  const category = req.body.category || 'hhh';
+  const maxAsk = req.body.maxAsk || '50000';
+  const minAsk = req.body.minAsk || '0';
+  const city = req.body.city || 'Austin';
+  const postal = req.body.postal || '78701';
+  const searchDistance = req.body.searchDistance || '25';
+
+  const searchQuery = {
+    baseHost,
+    category,
+    city,
+    maxAsk,
+    minAsk,
+    postal,
+    searchDistance,
+  };
+
+  craigsList.search(searchQuery, '', (err, data) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      console.log('data in the search', data);
+      res.json(data);
+    }
+  });
+});
 
 app.post('/api/:UserId', (req, res) => {
   console.log(req.body);
@@ -49,36 +80,6 @@ app.post('/api/properties', (req, res) => {
   res.end();
 });
 
-app.post('/api/search', (req, res) => {
-  const baseHost = req.body.baseHost || 'craigslist.org';
-  const category = req.body.category || 'hhh';
-  const maxAsk = req.body.maxAsk || '50000';
-  const minAsk = req.body.minAsk || '0';
-  const city = req.body.city || 'Austin';
-  const postal = req.body.postal || '78701';
-  const searchDistance = req.body.searchDistance || '25';
-
-  const searchQuery = {
-    baseHost,
-    category,
-    city,
-    maxAsk,
-    minAsk,
-    postal,
-    searchDistance,
-    offset: '5',
-  };
-
-  client.search(searchQuery, '', (err, data) => {
-    if (err) {
-      console.log(err);
-      throw err;
-    } else {
-      console.log('data in the search', data);
-      res.json(data);
-    }
-  });
-});
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
 // parse application/json
