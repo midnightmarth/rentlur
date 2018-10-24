@@ -1,9 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-<<<<<<< feature/scraper
-import List from './components/List.jsx';
-=======
->>>>>>> dev
 import axios from 'axios';
 import Search from './components/Search.jsx'
 import List from './components/List.jsx';
