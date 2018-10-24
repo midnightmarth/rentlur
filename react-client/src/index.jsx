@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Search from './components/Search.jsx'
+import Search from './components/Search.jsx';
 import List from './components/List.jsx';
 
 class App extends React.Component {
@@ -12,11 +12,13 @@ class App extends React.Component {
     };
     this.searchProperties = this.searchProperties.bind(this);
   }
+
   // to be completed later
   componentDidMount() {
 
   }
-  //requires routes
+
+  // requires routes
   searchProperties(searchQuery) {
     const post = {
       method: 'post',
@@ -25,12 +27,10 @@ class App extends React.Component {
         city: searchQuery,
       },
     };
-  
+
     axios(post).then((response) => {
       console.log('[CLIENT]', response);
-      this.setState({rentals: response.data}, () => {
-
-      });
+      this.setState({ rentals: response.data });
     });
   }
 

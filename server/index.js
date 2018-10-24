@@ -5,29 +5,29 @@ const craigslist = require('node-craigslist');
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }))
- 
-// parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
 
-let client = new craigslist.Client({
+// parse application/json
+app.use(bodyParser.json());
+
+const client = new craigslist.Client({
   baseHost: 'craigslist.com',
   city: 'Austin',
-})
+});
 
-//authentication
-app.post('/api/login', (req, res) =>{
+// authentication
+app.post('/api/login', (req, res) => {
   console.log('requested to login');
-  res.end
-})
-app.get('/api/logout', (req, res) =>{
+  res.end();
+});
+app.get('/api/logout', (req, res) => {
   console.log('requested to logout');
-  res.end
-})
-app.post('/api/signup', (req, res) =>{
+  res.end();
+});
+app.post('/api/signup', (req, res) => {
   console.log('requested to signup');
-  res.end
-})
+  res.end();
+});
 //
 
 app.post('/api/:UserId', (req, res) => {
@@ -47,7 +47,8 @@ app.delete('/api/:UserId', (req, res) => {
 app.post('/api/properties', (req, res) => {
   console.log(req.body);
   res.end();
-  
+});
+
 app.post('/api/search', (req, res) => {
   const baseHost = req.body.baseHost || 'craigslist.org';
   const category = req.body.category || 'hhh';
@@ -65,26 +66,22 @@ app.post('/api/search', (req, res) => {
     minAsk,
     postal,
     searchDistance,
-    offset: '5'
+    offset: '5',
   };
 
   client.search(searchQuery, '', (err, data) => {
-    console.log(data);
-    if(err){
-      throw err
+    if (err) {
+      console.log(err);
+      throw err;
     } else {
+      console.log('data in the search', data);
       res.json(data);
     }
-
-  
-  })
-})
-
+  });
 });
-console.log(path.resolve(__dirname, '../react-client/dist'));
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
 // parse application/json
-app.listen(3000, function() {
-  console.log(`listening on port 3000!`);
+app.listen(3000, () => {
+  console.log('listening on port 3000!');
 });
