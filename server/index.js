@@ -65,11 +65,17 @@ app.post('/api/search', (req, res) => {
     minAsk,
     postal,
     searchDistance,
+    offset: '5'
   };
 
   client.search(searchQuery, '', (err, data) => {
     console.log(data);
-    res.status(201).end(JSON.stringify(data));
+    if(err){
+      throw err
+    } else {
+      res.json(data);
+    }
+
   
   })
 })
@@ -79,7 +85,6 @@ console.log(path.resolve(__dirname, '../react-client/dist'));
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
 // parse application/json
-
-app.listen(3000, () => {
-  console.log('listening on port 3000!');
+app.listen(3000, function() {
+  console.log(`listening on port 3000!`);
 });

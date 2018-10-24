@@ -46,7 +46,7 @@ class Search extends React.Component {
       <div>
         <h4> Search </h4>
         Enter a location: <input value = {this.state.location} onChange = {this.onChange} onKeyPress = {this.onKeyPress}/>        
-        <button onClick = {() => {console.log(this.state.location); this.reset()}}> search </button>
+        <button onClick = {() => {this.props.search(this.state.location); this.reset()}}> search </button>
       </div>
     )
   }

@@ -20,14 +20,17 @@ class App extends React.Component {
   searchProperties(searchQuery) {
     const post = {
       method: 'post',
-      url: '/api/properties',
+      url: '/api/search',
       body: {
-        q: searchQuery,
+        city: searchQuery,
       },
     };
   
     axios(post).then((response) => {
-      console.log(response);
+      console.log('[CLIENT]', response);
+      this.setState({rentals: response.data}, () => {
+
+      });
     });
   }
 
@@ -36,6 +39,7 @@ class App extends React.Component {
       <div>
         <h1>Rentlur</h1>
         <Search search={this.searchProperties} />
+        <List rentals={this.state.rentals} />
       </div>
     );
   }
