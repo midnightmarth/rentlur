@@ -1,11 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const craigslist = require('node-craigslist');
 
-var app = express();
+const app = express();
 
-app.use(express.static(__dirname + '/../react-client/dist'));
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
  
 // parse application/json
@@ -16,17 +15,39 @@ let client = new craigslist.Client({
   city: 'Austin',
 })
 
+//authentication
+app.post('/api/login', (req, res) =>{
+  console.log('requested to login');
+  res.end
+})
+app.get('/api/logout', (req, res) =>{
+  console.log('requested to logout');
+  res.end
+})
+app.post('/api/signup', (req, res) =>{
+  console.log('requested to signup');
+  res.end
+})
+//
 
-app.get('/api', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-    }
-  });
+app.post('/api/:UserId', (req, res) => {
+  console.log(req.body);
+  res.end();
 });
 
+app.get('/api/:UserId', (req, res) => {
+  console.log(req.body);
+  res.end();
+});
+
+app.delete('/api/:UserId', (req, res) => {
+  console.log(req.body);
+  res.end();
+});
+app.post('/api/properties', (req, res) => {
+  console.log(req.body);
+  res.end();
+  
 app.post('/api/search', (req, res) => {
   const baseHost = req.body.baseHost || 'craigslist.org';
   const category = req.body.category || 'hhh';
@@ -53,8 +74,12 @@ app.post('/api/search', (req, res) => {
   })
 })
 
+});
+console.log(path.resolve(__dirname, '../react-client/dist'));
+app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
-app.listen(3000, function() {
+// parse application/json
+
+app.listen(3000, () => {
   console.log('listening on port 3000!');
 });
-
