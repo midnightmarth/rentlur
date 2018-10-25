@@ -77,6 +77,17 @@ app.post('/api/search', (req, res) => {
   });
 });
 
+app.post('/api/search/details', (req, res) => {
+
+  const listing = req.body.listing;
+
+  console.log(listing);
+  craigsList.details(listing).then(details => {
+    console.log('Got details', details);
+    res.status(201).json(details);
+  })
+});
+
 app.post('/api/:UserId', (req, res) => {
   console.log(req.body);
   res.end();
