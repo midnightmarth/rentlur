@@ -8,6 +8,7 @@ import Search from './components/Search.jsx';
 import List from './components/List.jsx';
 import SavedRentals from './components/SavedRentals.jsx';
 import Login from './components/Login.jsx';
+import Signup from './components/Signup.jsx'
 
 // modules
 
@@ -85,8 +86,19 @@ class App extends React.Component {
     }
 
     if (this.state.view === 'login') {
-      return <Login />
+      return (
+        <div>
+          <Login />
+          <div onClick={() => this.changeView('signup')}>Signup!</div>
+        </div>
+      )
     }
+
+    if (this.state.view === 'signup') {
+      return <Signup/>
+    }
+
+
 
 
     
@@ -101,8 +113,7 @@ class App extends React.Component {
           <span className={this.state.view === 'savedRentals' ? 'nav-selected': 'nav-unselected'} onClick={() => this.changeView('savedRentals')}>Saved Rentals</span>
           <span className={this.state.view === 'login' ? 'nav-selected': 'nav-unselected'} onClick={() => this.changeView('login')}>Login</span>
         </div>
-        <div className='main'>
-          
+        <div className='main'> 
           {this.renderMain()}
         </div>
       </div>

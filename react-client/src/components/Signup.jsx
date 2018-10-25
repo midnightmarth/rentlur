@@ -15,6 +15,7 @@ class Signup extends React.Component {
     this.onUserChange =this.onUserChange.bind(this);
     this.onPssChange =this.onPssChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   onNameChange(e) {
@@ -29,7 +30,7 @@ class Signup extends React.Component {
   }
   onUserChange(e) {
     this.setState({
-      user: e.target.value
+      username: e.target.value
     });
   }
   onPssChange(e) {
@@ -41,25 +42,27 @@ class Signup extends React.Component {
   handleSubmit(e) {
     console.log(this.state.name, this.state.email, this.state.username, this.state.password);
     e.preventDefault();
+    this.reset();
+  }
+
+  reset () {
+    this.setState({
+      name: '',
+      email: '',
+      username: '',
+      password: ''
+    });
   }
 
   render() {
     return (
       <div>
-      <form onSubmit={}>
-        <label>
-          <input value={this.state.name} onChange={this.onNameChange}/> 
-        </label>
-        <label>
-          <input value={this.state.email} onChange={this.onEmailChange}/> 
-        </label>
-        <label>
-          <input value={this.state.username} onChange={this.onUserChange}/> 
-        </label>
-        <label>
-          <input value={this.state.password} onChange={this.onPssChange}/> 
-        </label>
-          <input type='submit' value='Submit'/>
+      <form onSubmit={this.handleSubmit}>
+        <input value={this.state.name} onChange={this.onNameChange} placeholder= 'name'/><br/>
+        <input value={this.state.email} onChange={this.onEmailChange} placeholder= 'email'/> <br/>
+        <input value={this.state.username} onChange={this.onUserChange} placeholder= 'username'/> <br/>
+        <input value={this.state.password} onChange={this.onPssChange} placeholder= 'password'/> <br/>
+        <input className='sign-up-submit' type='submit' value='Submit'/>
       </form>
       </div>
     )
