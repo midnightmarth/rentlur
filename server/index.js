@@ -45,19 +45,19 @@ app.post('/api/search', (req, res) => {
   let cityState = cities.filter(cit => cit.name.match(req.body.city)).sort((a, b) => b.population - a.population)[0].adminCode;
   let zipCode = zipcodes.lookupByName(req.body.city, cityState);
 
-  console.log(zipCode[3].zip);
+  //console.log(`${zipCode[3].zip}`);
   
   //console.log('testing',cityState);
 
-  
+  // zipCode.toString() ||
   //zipcodeLookup = zipcodes.lookupByName('')
-  console.log(req.body)
+  // console.log(req.body);
   const baseHost = req.body.baseHost || 'craigslist.org';
   const category = req.body.category || 'hhh';
   const maxAsk = req.body.maxAsk || '50000';
   const minAsk = req.body.minAsk || '0';
   const city = req.body.city.toLowerCase().replace(/\s+/g, '') || 'Austin';
-  const postal =  zipCode.toString() || '55555';
+  const postal =  `${zipCode[3].zip}`;
   const searchDistance = req.body.searchDistance || '25';
   // let cityInfo = cities.filter(cit => cit.name.match('sanantonio'));
   // console.log(cityInfo);
