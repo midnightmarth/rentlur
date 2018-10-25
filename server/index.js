@@ -83,6 +83,10 @@ app.post('/api/properties', (req, res) => {
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
 // parse application/json
-app.listen(3000, () => {
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port, () => {
   console.log('listening on port 3000!');
 });
