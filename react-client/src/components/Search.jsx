@@ -46,8 +46,8 @@ class Search extends React.Component {
     return ( 
       <div>
         <h4> Search </h4>
-        Enter a location: <input value = {this.state.location} onChange = {this.onChange} onKeyPress = {this.onKeyPress}/>        
-        <button onClick = {() => {this.props.search(this.state.location); this.reset()}}> search </button>
+        Enter a location: <input value = {this.state.location} onChange = {this.onChange} onKeyPress = {this.onKeyPress} placeholder='type in location'/>        
+        <button className='submit' onClick = {() => {this.props.search(this.state.location); this.reset()}}> search </button>
       </div>
     )
   }

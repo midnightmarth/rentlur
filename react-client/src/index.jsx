@@ -4,6 +4,7 @@ import axios from 'axios';
 import Search from './components/Search.jsx';
 import List from './components/List.jsx';
 import SavedRentals from './components/SavedRentals.jsx';
+import Login from './components/Login.jsx';
 
 
 class App extends React.Component {
@@ -77,6 +78,12 @@ class App extends React.Component {
     if (this.state.view === 'savedRentals') {
       return <SavedRentals saved={this.state.savedRentals} />
     }
+
+    if (this.state.view === 'login') {
+      return <Login />
+    }
+
+
     
   }
 
@@ -86,7 +93,8 @@ class App extends React.Component {
       <div>
         <div className='nav-bar'>
           <span className='logo' onClick={() => this.changeView('rentals')}>Rentlur</span>
-          <span className='saved-rentals' onClick={() => this.changeView('savedRentals')}>Saved Rentals</span>
+          <span className={this.state.view === 'savedRentals' ? 'nav-selected': 'nav-unselected'} onClick={() => this.changeView('savedRentals')}>Saved Rentals</span>
+          <span className={this.state.view === 'login' ? 'nav-selected': 'nav-unselected'} onClick={() => this.changeView('login')}>Login</span>
         </div>
         <div className='main'>
           

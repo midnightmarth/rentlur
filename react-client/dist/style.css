@@ -7,6 +7,44 @@
   color: #ffffff;
 }
 
+.saved-rentals {
+  font-weight: bold;
+  font-size: 1.9em;
+  margin-right: auto;
+  margin-left: 10px;
+  font-family: 'Francois One';
+  color: #ffffff;
+}
+
+.usr-pss {
+  margin: 15px;
+}
+
+input {
+	border:2px solid rgba(192, 192, 192, 0.5);
+  font-size:0.8em;
+	padding:.25em .5em .3125em;
+	color:black;
+	border-radius:.25em;
+	background:transparent;
+	transition: all .100s;
+}
+
+.submit {
+  align-items: center;
+  font-size:0.8em;
+	justify-content: center;
+	display: inline-flex;
+	border: 1px solid white;
+	padding: 5px;
+	width: 100px;
+	color: white;
+	background-color: #85c6f1;
+	border-radius: 8px;
+	transition: 400ms ease all;
+	cursor: pointer;
+}
+
 .main {
   margin-left: 10%;
   margin-right: 10%;
