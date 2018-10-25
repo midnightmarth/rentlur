@@ -7,4 +7,10 @@ module.exports = {
       database: 'rentlur',
     },
   },
+  production: {
+    client: 'postgresql',
+    connection: {
+      database: 'process.env.DATABASE_URL'
+    }
+  }
 };
