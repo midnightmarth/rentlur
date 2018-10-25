@@ -5,6 +5,7 @@ import Search from './components/Search.jsx';
 import List from './components/List.jsx';
 import SavedRentals from './components/SavedRentals.jsx';
 import Login from './components/Login.jsx';
+import Details from './components/Details.jsx';
 
 
 class App extends React.Component {
@@ -34,9 +35,11 @@ class App extends React.Component {
             "title": "Parks and Recreation, Walkabilty 100%",
             "url": "https://austin.craigslist.org/apa/d/parks-and-recreation/6726748723.html"
         }
-      ]
+      ],
+      details: [],
     };
     this.searchProperties = this.searchProperties.bind(this);
+    this.retrieveDetails = this.retrieveDetails.bind(this);
   }
  
   // to be completed later
@@ -65,12 +68,20 @@ class App extends React.Component {
     });
   }
 
+  retrieveDetails(listing){
+    axios.post('/api/search/details',{listing}).then(details => {
+      console.log('Details returned client-side', details);
+      this.setState({details: details.data});
+      this.changeView('details');
+    })
+  }
+
   renderMain() {
     if (this.state.view === 'rentals') {
       return (
         <div>
          <Search search={this.searchProperties} /> 
-         <List rentals={this.state.rentals} /> 
+         <List retrieve={this.retrieveDetails} details={this.state.details} rentals={this.state.rentals} /> 
         </div>
       )
         
@@ -82,6 +93,11 @@ class App extends React.Component {
     if (this.state.view === 'login') {
       return <Login />
     }
+
+    if(this.state.view === 'details'){
+      return <Details details={this.state.details} />
+    }
+
 
 
     

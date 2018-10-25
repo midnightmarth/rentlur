@@ -9,7 +9,7 @@ const List = props => (
     { props.rentals.length }
     {' '}
 items.
-    { props.rentals.map((rental, index) => <ListItem key={index} rental={rental} />)}
+    { props.rentals.map((rental, index) => <ListItem key={index} retrieve={props.retrieve} rental={rental} />)}
   </div>
 );
 
