@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const craigslist = require('node-craigslist');
+const zipcodes = require('zipcodes');
+const cities = require('all-the-cities');
+
 
 const app = express();
 
@@ -9,11 +12,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+let cityState = cities.filter(cit => cit.name.match("Austin")).sort((a, b) => b.population - a.population)[0].adminCode;
+console.log('testing',cityState);
 
 const craigsList = new craigslist.Client({
   baseHost: 'craigslist.com',
-  city: 'Austin',
 });
+
+
+
 
 // authentication
 app.post('/api/login', (req, res) => {
@@ -31,15 +38,29 @@ app.post('/api/signup', (req, res) => {
 //
 
 app.post('/api/search', (req, res) => {
-  console.log('made it into server')
+  /// some city parsing
+
+  //let parseSearch = searchQuery.toLowerCase().replace(/\s+/g, '');
+  console.log(req.body)
+  let cityState = cities.filter(cit => cit.name.match(req.body.city)).sort((a, b) => b.population - a.population)[0].adminCode;
+  let zipCode = zipcodes.lookupByName(req.body.city, cityState);
+
+  console.log(zipCode[3].zip);
+  
+  //console.log('testing',cityState);
+
+  
+  //zipcodeLookup = zipcodes.lookupByName('')
+  console.log(req.body)
   const baseHost = req.body.baseHost || 'craigslist.org';
   const category = req.body.category || 'hhh';
   const maxAsk = req.body.maxAsk || '50000';
   const minAsk = req.body.minAsk || '0';
-  const city = req.body.city || 'Austin';
-  const postal = req.body.postal || '78701';
+  const city = req.body.city.toLowerCase().replace(/\s+/g, '') || 'Austin';
+  const postal =  zipCode.toString() || '55555';
   const searchDistance = req.body.searchDistance || '25';
-
+  // let cityInfo = cities.filter(cit => cit.name.match('sanantonio'));
+  // console.log(cityInfo);
   const searchQuery = {
     baseHost,
     category,
@@ -55,7 +76,7 @@ app.post('/api/search', (req, res) => {
       console.log(err);
       throw err;
     } else {
-      console.log('data in the search', data);
+      //console.log('data in the search', data);
       res.json(data);
     }
   });
