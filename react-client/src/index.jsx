@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { Router, Route, Switch } from 'react-router';
+
+// components
 import Search from './components/Search.jsx';
 import List from './components/List.jsx';
 import SavedRentals from './components/SavedRentals.jsx';
 import Login from './components/Login.jsx';
+
+// modules
 
 
 class App extends React.Component {
