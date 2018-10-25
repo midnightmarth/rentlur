@@ -1,5 +1,11 @@
 node_modules
+<<<<<<< HEAD
 package-lock.json
 .eslintrc.json
 react-client
 credentials.js
+=======
+.eslintrc.js
+react-client/dist/bundle.js
+package-lock.json
+>>>>>>> 8386e2b1ceecb071eb691252d89a3633dafc4912
