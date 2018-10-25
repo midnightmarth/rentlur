@@ -6,6 +6,8 @@ const zipcodes = require('zipcodes');
 const cities = require('all-the-cities');
 
 
+require('dotenv').config()
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
