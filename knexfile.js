@@ -1,3 +1,7 @@
+require('dotenv').config()
+
+const pg = require('pg')
+
 module.exports = {
 
   development: {
@@ -8,9 +12,7 @@ module.exports = {
     },
   },
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'process.env.DATABASE_URL'
-    }
+    client: 'pg',
+    connection: 'process.env.DATABASE_URL'
   }
 };

@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const craigslist = require('node-craigslist');
 
+require('dotenv').config()
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
