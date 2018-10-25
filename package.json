@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server/index.js",
+    "heroku-postbuild": "webpack -p",
     "react": "webpack -d --watch",
     "server": "nodemon server/index.js",
     "create-db": "createdb rentlur; knex migrate:latest; knex seed:run"
@@ -29,13 +31,17 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "all-the-cities": "^2.0.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "knex": "^0.15.2",
     "node-craigslist": "^1.2.2",
     "pg": "^7.5.0",
     "react": "^16.6.0",
-    "react-dom": "^16.6.0"
+    "react-dom": "^16.6.0",
+    "react-router": "^4.3.1",
+    "zipcodes": "^7.0.0"
   }
 }

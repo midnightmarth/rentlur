@@ -1,3 +1,7 @@
+require('dotenv').config()
+
+const pg = require('pg')
+
 module.exports = {
 
   development: {
@@ -7,4 +11,8 @@ module.exports = {
       database: 'rentlur',
     },
   },
+  production: {
+    client: 'pg',
+    connection: process.env.DATABASE_URL + `?ssl=true`
+  }
 };
