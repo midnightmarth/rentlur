@@ -99,6 +99,14 @@ app.post('/api/search', (req, res) => {
   });
 });
 
+app.post('/api/search/details', (req, res) => {
+  const listing = req.body.listing;
+  console.log(listing);
+ craigsList.details(listing).then(details => {
+   console.log('Got details', details);
+   res.status(201).json(details);
+ })
+});
 
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
