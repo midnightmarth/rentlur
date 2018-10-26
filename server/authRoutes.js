@@ -10,7 +10,6 @@ const session = require("express-session");
 
 router.use(passport.initialize());
 router.use(passport.session());
-// parse application/json
 router.use(expressLogging(logger));
 
 router.use(cookieParser());

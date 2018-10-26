@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -30,23 +29,4 @@ passport.use(new LocalStrategy((username, password, done) => {
     })).catch(err => console.log('Didnt find User ',err));
   }
 ));
-=======
-const express = require('express');
-const router = express.Router();
-// authentication
-router.post('/login', (req, res) => {
-  console.log('requested to login');
-  res.end();
-});
-router.get('/logout', (req, res) => {
-  console.log('requested to logout');
-  res.end();
-});
-router.post('/signup', (req, res) => {
-  console.log('requested to signup');
-  res.end();
-});
 
-
-module.exports = router;
->>>>>>> cleanup routes

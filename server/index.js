@@ -1,32 +1,29 @@
+//Modules
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const session = require("express-session");
+//Local Files
 
-const { User, Property } = require('../models/schema')
-const search = require('./search');
-const authRoutes = require('./authRoutes');
-const db = require('./db');
+const search = require('./search.js');
+const authRoutes = require('./authRoutes.js');
+const db = require('./db.js');
 
 require('dotenv').config()
 const app = express();
 
+//Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
-
-
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-
 
 //Routes
 app.use('/api/search', search);
 app.use('/api/properties', db);
 app.use('/api', authRoutes);
 
+
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
-// parse application/json
+// Setup
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 3000;

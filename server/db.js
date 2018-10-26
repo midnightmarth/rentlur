@@ -1,6 +1,7 @@
 const express = require('express');
 const { User, Property } = require('../models/schema');
 const router = express.Router();
+require('dotenv').config()
 
 router.get('/:UserId', (req, res) => {
   User.query().findById(req.params.UserId).eager('property')
