@@ -48,9 +48,9 @@ console.log(req)
 
 router.post('/details', (req, res) => {
   const listing = req.body.listing;
-  console.log(listing);
+  // console.log(listing);
  craigsList.details(listing).then(details => {
-   console.log('Got details', details);
+  //  console.log('Got details', details);
    res.status(201).json(details);
  })
 });
