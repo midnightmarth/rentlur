@@ -3,9 +3,16 @@ import React from 'react';
 class Details extends React.Component {
   constructor(props){
     super(props);
-
+    this.state = {
+      details: []
+    }
   }
 
+  // componentDidMount(){
+  //   this.setState({
+  //     details: this.props.details
+  //   });
+  // }
   waitOnData(obj) {
     // var str = JSON.stringify(obj);
     // str = JSON.parse(str);
@@ -24,6 +31,7 @@ class Details extends React.Component {
   render() {
     return (
       <div>
+      {console.log(this.props.details)}
         <h2>{this.props.details.title}</h2>
         <ul>
           <li>Price: {this.props.details.price} </li>

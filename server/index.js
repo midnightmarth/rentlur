@@ -83,7 +83,7 @@ app.post('/api/search/details', (req, res) => {
 
   console.log(listing);
   craigsList.details(listing).then(details => {
-    console.log('Got details', details);
+    console.log('Got details');
     res.status(201).json(details);
   })
 });
@@ -109,6 +109,13 @@ app.post('/api/properties', (req, res) => {
 
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../react-client/dist/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  })
+})
 // parse application/json
 let port = process.env.PORT;
 if (port == null || port == "") {
