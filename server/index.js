@@ -7,7 +7,8 @@ const keys = require("../credentials").web;
 const expressLogging = require('express-logging');
 const logger=require('logops');
 require('./auth');
-const passport = require('passport')
+const passport = require('passport');
+const bcrypt = require('bcrypt');
 
 const craigslist = require("node-craigslist");
 const zipcodes = require('zipcodes');
@@ -59,8 +60,13 @@ app.get("/api/logout", (req, res) => {
   console.log("requested to logout");
   res.end();
 });
+
 app.post("/api/signup", (req, res) => {
   console.log("requested to signup");
+  let password = req.body.password
+  bcrypt.hash(password, 10, function (err, hash){
+    //puit in db
+  })
   res.end();
 });
 //
