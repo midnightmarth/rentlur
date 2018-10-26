@@ -11,8 +11,6 @@ import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import NavBar from './components/NavBar.jsx';
 import Details from './components/Details.jsx';
-import Details from './components/Details.jsx';
-import Signup from './components/Signup.jsx'
 
 class App extends React.Component {
   constructor(props) {
