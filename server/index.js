@@ -6,6 +6,8 @@ const zipcodes = require('zipcodes');
 const cities = require('all-the-cities');
 
 
+// require('dotenv').config()
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -73,6 +75,17 @@ app.post('/api/search', (req, res) => {
       res.json(data);
     }
   });
+});
+
+app.post('/api/search/details', (req, res) => {
+
+  const listing = req.body.listing;
+
+  console.log(listing);
+  craigsList.details(listing).then(details => {
+    console.log('Got details', details);
+    res.status(201).json(details);
+  })
 });
 
 app.post('/api/:UserId', (req, res) => {
