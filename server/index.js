@@ -5,8 +5,8 @@ const craigslist = require('node-craigslist');
 const zipcodes = require('zipcodes');
 const cities = require('all-the-cities');
 
+require('dotenv').config()
 
-// require('dotenv').config()
 
 const app = express();
 
