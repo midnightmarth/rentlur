@@ -21,28 +21,8 @@ app.use('/api/search', search);
 app.use('/api/properties', db);
 app.use('/api', authRoutes);
 
-app.post('/api/:UserId', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
 
-app.get('/api/:UserId', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
-
-app.delete('/api/:UserId', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
-app.post('/api/properties', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
-
-app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
-
-app.get('/*', function(req, res) {
+app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '../react-client/dist/index.html'), function(err) {
     if (err) {
       res.status(500).send(err);
