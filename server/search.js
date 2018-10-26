@@ -9,7 +9,7 @@ const craigsList = new craigslist.Client({
 });
 
 router.post('/', (req, res) => {
-console.log(req)
+// console.log(req)
   // Retrieves the state from the city name of the most populous city by that name
   let cityState = cities.filter(cit => cit.name.match(req.body.city)).sort((a, b) => b.population - a.population)[0].adminCode;
 

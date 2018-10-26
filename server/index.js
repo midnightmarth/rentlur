@@ -20,18 +20,8 @@ app.use(bodyParser.json());
 app.use('/api/search', search);
 app.use('/api/properties', db);
 app.use('/api', authRoutes);
-
-
-
-app.post('/api/search/details', (req, res) => {
-
-  const listing = req.body.listing;
-
-  console.log(listing);
-  craigsList.details(listing).then(details => {
-    console.log('Got details');
-    res.status(201).json(details);
-  })
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../react-client/dist'));
 });
 
 app.post('/api/:UserId', (req, res) => {
