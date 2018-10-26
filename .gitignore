@@ -1,5 +1,6 @@
 node_modules
-.eslintrc.js
+.eslintrc.json
+credentials.js
 react-client/dist/bundle.js
 package-lock.json
 npm-debug.log

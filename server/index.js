@@ -1,51 +1,26 @@
+
+//Modules
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const craigslist = require('node-craigslist');
-const zipcodes = require('zipcodes');
-const cities = require('all-the-cities');
+//Local Files
 
+const search = require('./search.js');
+const authRoutes = require('./authRoutes.js');
+const db = require('./db.js');
 
-// require('dotenv').config()
-
+require('dotenv').config()
 const app = express();
 
+//Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
-
-// parse application/json
 app.use(bodyParser.json());
-let cityState = cities.filter(cit => cit.name.match("Austin")).sort((a, b) => b.population - a.population)[0].adminCode;
-console.log('testing',cityState);
 
-const craigsList = new craigslist.Client({
-  baseHost: 'craigslist.com',
-});
+//Routes
+app.use('/api/search', search);
+app.use('/api/properties', db);
+app.use('/api', authRoutes);
 
-
-
-
-// authentication
-app.post('/api/login', (req, res) => {
-  console.log('requested to login');
-  res.end();
-});
-app.get('/api/logout', (req, res) => {
-  console.log('requested to logout');
-  res.end();
-});
-app.post('/api/signup', (req, res) => {
-  console.log('requested to signup');
-  res.end();
-});
-//
-
-app.post('/api/search', (req, res) => {
-
-  // Retrieves the state from the city name of the most populous city by that name
-  let cityState = cities.filter(cit => cit.name.match(req.body.city)).sort((a, b) => b.population - a.population)[0].adminCode;
-
-  //gets a generic zipCode if none is given
-  let zipCode = zipcodes.lookupByName(req.body.city, cityState);
 
   const baseHost = req.body.baseHost || 'craigslist.org';
   const category = req.body.category || 'hhh';
@@ -117,6 +92,11 @@ app.get('/*', function(req, res) {
   })
 })
 // parse application/json
+
+app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
+
+// Setup
+
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 3000;

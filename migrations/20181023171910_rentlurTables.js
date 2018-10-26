@@ -3,6 +3,7 @@ exports.up = function (knex, Promise) {
     .createTable('users', (table) => {
       table.increments('id').primary();
       table.string('username');
+      table.string('password');
     })
     .createTable('properties', (table) => {
       table.string('pid').unique();//
@@ -10,6 +11,7 @@ exports.up = function (knex, Promise) {
       table.string('title');
       table.string('price');//
       table.string('url');//
+      table.boolean('hasPic')//
       table.string('date');//
       table.integer('user_id').references('id').inTable('users').notNull()
         .onDelete('cascade');
