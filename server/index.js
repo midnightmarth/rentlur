@@ -21,6 +21,7 @@ app.use('/api/search', search);
 app.use('/api/properties', db);
 app.use('/api', authRoutes);
 
+app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '../react-client/dist/index.html'), function(err) {
@@ -30,8 +31,6 @@ app.get('*', function(req, res) {
   })
 })
 // parse application/json
-
-app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
 // Setup
 
