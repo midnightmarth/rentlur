@@ -9,7 +9,7 @@ const craigsList = new craigslist.Client({
 });
 
 router.post('/', (req, res) => {
-console.log(req)
+// console.log(req)
   // Retrieves the state from the city name of the most populous city by that name
   let cityState = cities.filter(cit => cit.name.match(req.body.city)).sort((a, b) => b.population - a.population)[0].adminCode;
 
@@ -48,9 +48,9 @@ console.log(req)
 
 router.post('/details', (req, res) => {
   const listing = req.body.listing;
-  console.log(listing);
+  // console.log(listing);
  craigsList.details(listing).then(details => {
-   console.log('Got details', details);
+  //  console.log('Got details', details);
    res.status(201).json(details);
  })
 });
