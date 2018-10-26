@@ -20,24 +20,23 @@ module.exports = {
           options: {
             presets: [
               [
-                '@babel/preset-env', {
+                '@babel/preset-env',
+                {
                   targets: {
-                      browsers: [
-                        'last 2 versions'
-                      ]
+                    browsers: ['last 2 versions'],
                   },
-                  modules: false // Needed for tree shaking to work.
-                }
+                  modules: false, // Needed for tree shaking to work.
+                },
               ],
-              '@babel/preset-react' // https://goo.gl/4aEFV3
+              '@babel/preset-react', // https://goo.gl/4aEFV3
             ],
             plugins: [
               '@babel/plugin-proposal-object-rest-spread', // https://goo.gl/LCHWnP
-              '@babel/plugin-proposal-class-properties' // https://goo.gl/TE6TyG
-            ]
-          }
-        }
-      }
-    ]
-  }
+              '@babel/plugin-proposal-class-properties', // https://goo.gl/TE6TyG
+            ],
+          },
+        },
+      },
+    ],
+  },
 };

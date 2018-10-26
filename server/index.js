@@ -1,64 +1,37 @@
+
+//Modules
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const craigslist = require('node-craigslist');
+//Local Files
 
+const search = require('./search.js');
+const authRoutes = require('./authRoutes.js');
+const db = require('./db.js');
+
+require('dotenv').config()
 const app = express();
 
+//Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
-
-// parse application/json
 app.use(bodyParser.json());
 
-const craigsList = new craigslist.Client({
-  baseHost: 'craigslist.com',
-  city: 'Austin',
-});
+//Routes
+app.use('/api/search', search);
+app.use('/api/properties', db);
+app.use('/api', authRoutes);
 
-// authentication
-app.post('/api/login', (req, res) => {
-  console.log('requested to login');
-  res.end();
-});
-app.get('/api/logout', (req, res) => {
-  console.log('requested to logout');
-  res.end();
-});
-app.post('/api/signup', (req, res) => {
-  console.log('requested to signup');
-  res.end();
-});
-//
 
-app.post('/api/search', (req, res) => {
-  console.log('made it into server')
-  const baseHost = req.body.baseHost || 'craigslist.org';
-  const category = req.body.category || 'hhh';
-  const maxAsk = req.body.maxAsk || '50000';
-  const minAsk = req.body.minAsk || '0';
-  const city = req.body.city || 'Austin';
-  const postal = req.body.postal || '78701';
-  const searchDistance = req.body.searchDistance || '25';
 
-  const searchQuery = {
-    baseHost,
-    category,
-    city,
-    maxAsk,
-    minAsk,
-    postal,
-    searchDistance,
-  };
+app.post('/api/search/details', (req, res) => {
 
-  craigsList.search(searchQuery, '', (err, data) => {
-    if (err) {
-      console.log(err);
-      throw err;
-    } else {
-      console.log('data in the search', data);
-      res.json(data);
-    }
-  });
+  const listing = req.body.listing;
+
+  console.log(listing);
+  craigsList.details(listing).then(details => {
+    console.log('Got details');
+    res.status(201).json(details);
+  })
 });
 
 app.post('/api/:UserId', (req, res) => {
@@ -82,7 +55,23 @@ app.post('/api/properties', (req, res) => {
 
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../react-client/dist/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  })
+})
 // parse application/json
-app.listen(3000, () => {
+
+app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
+
+// Setup
+
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port, () => {
   console.log('listening on port 3000!');
 });

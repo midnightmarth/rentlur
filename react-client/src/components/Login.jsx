@@ -54,10 +54,10 @@ class Login extends React.Component {
     return (
       <div className='usr-pss'>
         <div>
-          username: <input value={this.state.username} onChange={this.onUserChange} onKeyPress={this.onUserKeyPress} placeholder='username'/>
+          username: <input type='username' value={this.state.username} onChange={this.onUserChange} onKeyPress={this.onUserKeyPress} placeholder='username'/>
         </div>
         <div>
-          password: <input value={this.state.password} onChange={this.onPassChange} onKeyPress={this.onPassKeyPress} placeholder='password'/>
+          password: <input type= "password" value={this.state.password} onChange={this.onPassChange} onKeyPress={this.onPassKeyPress} placeholder='password'/>
         </div>
         <button className='submit' onClick={()=> { console.log(this.state.username, this.state.password); this.reset(); }}>submit</button>
       </div>
