@@ -1,7 +1,15 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const craigslist = require('node-craigslist');
+const express = require("express");
+const session = require("express-session");
+const bodyParser = require("body-parser");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const keys = require("../credentials").web;
+const expressLogging = require('express-logging');
+const logger=require('logops');
+require('./auth');
+const passport = require('passport')
+
+const craigslist = require("node-craigslist");
 const zipcodes = require('zipcodes');
 const cities = require('all-the-cities');
 const { User, Property } = require('../models/schema')
@@ -11,8 +19,23 @@ require('dotenv').config()
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(expressLogging(logger));
+app.use(express.static(path.resolve(__dirname, "../react-client/dist")));
+
+app.use(cookieParser());
+app.use(
+  session({
+    secret: "MemesAreCool",
+    resave: false,
+    saveUninitialized: true
+  })
+);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(passport.initialize());
+app.use(passport.session());
 // parse application/json
 app.use(bodyParser.json());
 let cityState = cities.filter(cit => cit.name.match("Austin")).sort((a, b) => b.population - a.population)[0].adminCode;
@@ -25,16 +48,19 @@ const craigsList = new craigslist.Client({
 
 
 // authentication
-app.post('/api/login', (req, res) => {
-  console.log('requested to login');
+app.post("/api/login", passport.authenticate('local'), (req, res) => {
+  console.log('Authenticated');
+  //What do I send to let the client know it succeeded to login?
+  res.send({ data: 'Authenticated' });
+});
+
+
+app.get("/api/logout", (req, res) => {
+  console.log("requested to logout");
   res.end();
 });
-app.get('/api/logout', (req, res) => {
-  console.log('requested to logout');
-  res.end();
-});
-app.post('/api/signup', (req, res) => {
-  console.log('requested to signup');
+app.post("/api/signup", (req, res) => {
+  console.log("requested to signup");
   res.end();
 });
 //
@@ -85,7 +111,7 @@ app.post('/api/search', (req, res) => {
     maxAsk,
     minAsk,
     postal,
-    searchDistance,
+    searchDistance
   };
 
 // Search Craigslist
