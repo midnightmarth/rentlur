@@ -7,7 +7,7 @@ var router = express.Router();
 const craigsList = new craigslist.Client({
   baseHost: 'craigslist.com',
 });
-//work please
+
 router.post('/', (req, res) => {
 // console.log(req)
   // Retrieves the state from the city name of the most populous city by that name

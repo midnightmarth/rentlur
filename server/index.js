@@ -20,9 +20,6 @@ app.use(bodyParser.json());
 app.use('/api/search', search);
 app.use('/api/properties', db);
 app.use('/api', authRoutes);
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../react-client/dist'));
-});
 
 app.post('/api/:UserId', (req, res) => {
   console.log(req.body);
