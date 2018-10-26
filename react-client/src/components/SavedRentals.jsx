@@ -6,8 +6,8 @@ const SavedRentals = (props) => (
       <div>
         <h1>Saved Rentals</h1>
         <ul>
-          {props.saved.map( (item) => (
-            <li>
+          {props.saved.map( (item, index) => (
+            <li key={index}>
               <SavedRentalItem rental={item}/>
             </li>
             ))
