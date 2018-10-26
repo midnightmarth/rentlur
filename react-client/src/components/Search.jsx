@@ -28,7 +28,8 @@ class Search extends React.Component {
   // set state on "return" key
   onKeyPress(e) {
     if (e.which === 13) {
-      this.changeState(e.target.value);
+      this.props.search(this.state.location);
+      // this.changeState(e.target.value);
       console.log(this.state.location);
       this.reset();
     }
@@ -45,8 +46,8 @@ class Search extends React.Component {
     return ( 
       <div>
         <h4> Search </h4>
-        Enter a location: <input value = {this.state.location} onChange = {this.onChange} onKeyPress = {this.onKeyPress}/>        
-        <button onClick = {() => {console.log(this.state.location); this.reset()}}> search </button>
+        Enter a location: <input value = {this.state.location} onChange = {this.onChange} onKeyPress = {this.onKeyPress} placeholder='type in location'/>        
+        <button className='submit' onClick = {() => {this.props.search(this.state.location); this.reset()}}> search </button>
       </div>
     )
   }
