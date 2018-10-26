@@ -3,6 +3,7 @@ exports.up = function (knex, Promise) {
     .createTable('users', (table) => {
       table.increments('id').primary();
       table.string('username');
+      table.string('password');
     })
     .createTable('properties', (table) => {
       table.string('pid').unique();//

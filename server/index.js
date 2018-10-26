@@ -3,7 +3,6 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const keys = require("../credentials").web;
 const expressLogging = require('express-logging');
 const logger=require('logops');
 require('./auth');
