@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from './Image.jsx';
 import Arrow from './Arrow.jsx';
+import Grid from 'react-css-grid';
 
 export default class ImgSlide extends React.Component{
   constructor(props){
@@ -42,15 +43,18 @@ export default class ImgSlide extends React.Component{
 
   render(){
     return (
-              <span>
-      <div className="imgSlide">
-
-        <Arrow direction="left" onClick={this.previousSlide} arrow="&#9664;"/>
-        <Image imgUrl={this.state.imageUrls[this.state.currentImgIndex]} />
-        <Arrow direction="right" onClick={this.nextSlide} arrow="&#9654;"/>
+      <Grid width={100}>      
+        <div className="imgSlide">
+          <div><Image imgUrl={this.state.imageUrls[this.state.currentImgIndex]} /></div>
+          <span> <Arrow direction="right" onClick={this.nextSlide} /> <Arrow direction="left" onClick={this.previousSlide}/></span>
+          
+          
+         
         
-      </div>
-      </span>
+        </div>
+      </Grid>
+
+  
     )
   }
 }
