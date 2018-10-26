@@ -1,8 +1,9 @@
 .logo {
   font-weight: bold;
   font-size: 1.9em;
-  margin-right: auto;
-  margin-left: 10px;
+  margin: auto;
+  position: absolute;
+  left: 2%;
   font-family: 'Francois One';
   color: #ffffff;
 }
@@ -45,6 +46,30 @@ input {
 	cursor: pointer;
 }
 
+.sign-up-submit {
+  align-items: center;
+  font-size:0.8em;
+	justify-content: center;
+	display: inline-flex;
+	border: 1px solid white;
+	padding: 5px;
+	width: 100px;
+	color: white;
+	background-color: #85c6f1;
+	border-radius: 8px;
+	transition: 400ms ease all;
+	cursor: pointer;
+}
+
+.signup-block {
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  position: absolute;
+  left: 45%;
+  right: 45%;
+}
+
 .main {
   margin-left: 10%;
   margin-right: 10%;
@@ -60,16 +85,8 @@ input {
   font-family: 'Francois One';
 }
 
-.nav-selected {
-  padding: 5px;
-  color: white;
-  font-weight: bold;
-  margin-right: 5px;
-  font-size: 1.1em;
-}
-
-.nav-unselected {
-  padding: 5px;
-  margin-right: 5px;
-  font-size: 1.1em;
+.tags {
+  padding: 10px;
+  font-family: 'Francois One';
+  color: #000000;
 }

@@ -1,22 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Router, Route, Switch } from 'react-router';
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 
 // components
 import Search from './components/Search.jsx';
 import List from './components/List.jsx';
 import SavedRentals from './components/SavedRentals.jsx';
 import Login from './components/Login.jsx';
+import Signup from './components/Signup.jsx';
+import NavBar from './components/NavBar.jsx';
+import Details from './components/Details.jsx';
 import Details from './components/Details.jsx';
 import Signup from './components/Signup.jsx'
-
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'rentals',
       rentals: [],
       savedRentals:[
         {
@@ -57,14 +58,7 @@ class App extends React.Component {
   searchProperties(searchQuery) {
 
  
-   // console.log(parseSearch);
-    // const post = {
-    //   method: 'post',
-    //   url: '/api/search',
-    //   body: {
-    //     city: searchQuery,
-    //   },
-    // };
+   console.log(searchQuery);
     axios.post('/api/search', {city: searchQuery}).then((response) => {
       this.setState({ rentals: response.data });
     });
@@ -81,7 +75,7 @@ class App extends React.Component {
       console.log('Details returned client-side', details);
       this.setState({details: details.data});
       this.changeView('details');
-    })
+    });
   }
 
   renderMain() {
@@ -115,26 +109,32 @@ class App extends React.Component {
       return <Details details={this.state.details} />
     }
 
-
-
-
-
-    
   }
 
   render() {
     return (
 
+      <BrowserRouter>
       <div>
-        <div className='nav-bar'>
-          <span className='logo' onClick={() => this.changeView('rentals')}>Rentlur</span>
-          <span className={this.state.view === 'savedRentals' ? 'nav-selected': 'nav-unselected'} onClick={() => this.changeView('savedRentals')}>Saved Rentals</span>
-          <span className={this.state.view === 'login' ? 'nav-selected': 'nav-unselected'} onClick={() => this.changeView('login')}>Login</span>
-        </div>
+        <NavBar/>
         <div className='main'> 
-          {this.renderMain()}
+        <Switch>
+          <Route exact path='/' render={(props) => { 
+            return (
+              <div>
+                <Search {...props} search={this.searchProperties}/>
+                <List {...props} retrieve={this.retrieveDetails} details={this.state.details} rentals={this.state.rentals}/>
+              </div>
+            )
+          }} />
+          <Route path='/saved-rentals' render={(props) => <SavedRentals {...props} saved={this.state.savedRentals}/>}/>
+          <Route path='/login' component={Login}/>
+          <Route path='/signup' component={Signup}/>
+          <Route path='/details' render={(props) => <Details {...props} details={this.state.details} />}/>
+        </Switch>
         </div>
       </div>
+      </BrowserRouter>
     );
   }
 }

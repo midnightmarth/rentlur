@@ -6,8 +6,8 @@ const zipcodes = require('zipcodes');
 const cities = require('all-the-cities');
 const { User, Property } = require('../models/schema')
 
-
 require('dotenv').config()
+
 
 const app = express();
 
