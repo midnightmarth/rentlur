@@ -40,14 +40,25 @@ app.post('/api/signup', (req, res) => {
 //
 
 //example query from the properties table
-// app.get('/api/properties', (req, res) => {
-//     Property.query().then(result => res.json(result))
-// });
+app.get('/api/properties', (req, res) => {
+  Property.query().then(result => res.json(result))
+});
 
 //example query from a specific user to grab all properties that share ids
 app.get('/api/:UserId/users', (req, res) => {
   User.query().findById(req.params.UserId).eager('property')
   .then(result => res.json(result))
+});
+
+app.post('/api/:UserId/users', (req, res) => {
+  console.log(req.body);
+  res.end();
+});
+
+
+app.delete('/api/:UserId/users', (req, res) => {
+  console.log(req.body);
+  res.end();
 });
 
 app.post('/api/search', (req, res) => {
@@ -88,17 +99,6 @@ app.post('/api/search', (req, res) => {
   });
 });
 
-
-app.post('/api/:UserId', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
-
-
-app.delete('/api/:UserId', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
 
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
