@@ -4,6 +4,7 @@ const path = require('path');
 const craigslist = require('node-craigslist');
 const zipcodes = require('zipcodes');
 const cities = require('all-the-cities');
+const { User, Property } = require('../models/schema')
 
 
 require('dotenv').config()
@@ -23,7 +24,6 @@ const craigsList = new craigslist.Client({
 
 
 
-
 // authentication
 app.post('/api/login', (req, res) => {
   console.log('requested to login');
@@ -38,6 +38,17 @@ app.post('/api/signup', (req, res) => {
   res.end();
 });
 //
+
+//example query from the properties table
+// app.get('/api/properties', (req, res) => {
+//     Property.query().then(result => res.json(result))
+// });
+
+//example query from a specific user to grab all properties that share ids
+app.get('/api/:UserId/users', (req, res) => {
+  User.query().findById(req.params.UserId).eager('property')
+  .then(result => res.json(result))
+});
 
 app.post('/api/search', (req, res) => {
 
@@ -77,32 +88,14 @@ app.post('/api/search', (req, res) => {
   });
 });
 
-app.post('/api/search/details', (req, res) => {
-
-  const listing = req.body.listing;
-
-  console.log(listing);
-  craigsList.details(listing).then(details => {
-    console.log('Got details', details);
-    res.status(201).json(details);
-  })
-});
 
 app.post('/api/:UserId', (req, res) => {
   console.log(req.body);
   res.end();
 });
 
-app.get('/api/:UserId', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
 
 app.delete('/api/:UserId', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
-app.post('/api/properties', (req, res) => {
   console.log(req.body);
   res.end();
 });
