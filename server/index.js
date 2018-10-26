@@ -22,9 +22,81 @@ app.use('/api/properties', db);
 app.use('/api', authRoutes);
 
 
+  const baseHost = req.body.baseHost || 'craigslist.org';
+  const category = req.body.category || 'hhh';
+  const maxAsk = req.body.maxAsk || '50000';
+  const minAsk = req.body.minAsk || '0';
+  const city = req.body.city.toLowerCase().replace(/\s+/g, '') || 'Austin';
+  const postal =  `${zipCode[3].zip}`;
+  const searchDistance = req.body.searchDistance || '25';
+
+  //Search Query construction
+  const searchQuery = {
+    baseHost,
+    category,
+    city,
+    maxAsk,
+    minAsk,
+    postal,
+    searchDistance,
+  };
+
+// Search Craigslist
+  craigsList.search(searchQuery, '', (err, data) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      res.json(data);
+    }
+  });
+});
+
+app.post('/api/search/details', (req, res) => {
+
+  const listing = req.body.listing;
+
+  console.log(listing);
+  craigsList.details(listing).then(details => {
+    console.log('Got details');
+    res.status(201).json(details);
+  })
+});
+
+app.post('/api/:UserId', (req, res) => {
+  console.log(req.body);
+  res.end();
+});
+
+app.get('/api/:UserId', (req, res) => {
+  console.log(req.body);
+  res.end();
+});
+
+app.delete('/api/:UserId', (req, res) => {
+  console.log(req.body);
+  res.end();
+});
+app.post('/api/properties', (req, res) => {
+  console.log(req.body);
+  res.end();
+});
+
+app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../react-client/dist/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  })
+})
+// parse application/json
+
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
 // Setup
+
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 3000;

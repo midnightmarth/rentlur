@@ -12,6 +12,9 @@ import Signup from './components/Signup.jsx';
 import NavBar from './components/NavBar.jsx';
 import Details from './components/Details.jsx';
 
+
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -48,9 +51,9 @@ class App extends React.Component {
   }
  
   // to be completed later
-  componentDidMount() {
-
-  }
+  // componentDidMount(savedDetails) {
+  //   this.setState({details: savedDetails});
+  // }
 
   // requires routes
   searchProperties(searchQuery) {
@@ -68,12 +71,37 @@ class App extends React.Component {
     });
   }
 
-  retrieveDetails(listing){
-    axios.post('/api/search/details',{listing}).then(details => {
-      console.log('Details returned client-side', details);
-      this.setState({details: details.data});
-      this.changeView('details');
+  // retrieveDetails(listing){
+  //   axios.post('/api/search/details',{listing})
+  //   .then(details => {
+  //     console.log('Details returned client-side', details);
+  //     // sessionStorage.setItem('details', details.data);
+  //     // let savedDetails = sessionStorage.getItem('details');
+  //     // console.log(savedDetails);
+  //       this.setState({details: details.data});
+  //       // console.log(this.state.details.title, '<---- details saved');
+  //       this.changeView('details');
+  //   });
+  // }
+  retrieveDetails(selected, listing){
+    // console.log(selected);
+    this.setState({
+      details: this.state.rentals[selected]
     });
+    axios.post('/api/search/details',{listing})
+    .then(details => {
+      console.log('Details returned client-side', details);
+      const combined = Object.assign(details.data, this.state.rentals[selected])
+      // console.log(combined);
+      // sessionStorage.setItem('details',  details.data);
+      // let savedDetails = sessionStorage.getItem('details');
+      //  let reassign = this.state.rentals[selected];
+      this.setState({details: combined});
+
+      console.log(this.state.details.title, '<---- details saved');
+ 
+    });
+    console.log(this.state.details);
   }
 
   renderMain() {
