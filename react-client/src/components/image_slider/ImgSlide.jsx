@@ -58,7 +58,6 @@ export default class ImgSlide extends React.Component{
         </Grid>
       </Grid>
       </Grid>
-
   
     )
   }
