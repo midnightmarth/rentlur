@@ -48,6 +48,8 @@ class App extends React.Component {
     };
     this.searchProperties = this.searchProperties.bind(this);
     this.retrieveDetails = this.retrieveDetails.bind(this);
+    this.login = this.login.bind(this);
+    this.signup = this.signup.bind(this);
   }
  
   // to be completed later
@@ -58,18 +60,26 @@ class App extends React.Component {
   // requires routes
   searchProperties(searchQuery) {
 
- 
+
    console.log(searchQuery);
     axios.post('/api/search', {city: searchQuery}).then((response) => {
       this.setState({ rentals: response.data });
     });
   }
 
-  changeView(view) {
-    this.setState({
-      view: view
+  login(usr, pss) {
+    axios.post('/api/login', {user: usr, password: pss})
+    .then ((response)=> {
+      console.log(response);
     });
   }
+  signup(usr, pss) {
+    axios.post('/api/signup', {user: usr, password: pss})
+    .then ((response)=> {
+      console.log(response);
+    });
+  }
+
 
   retrieveFavorites(user_id) {
     axios.get(`api/properties/${user_id}`)
@@ -86,19 +96,9 @@ class App extends React.Component {
     .then(result => console.log(result))
   }
 
-  // retrieveDetails(listing){
-  //   axios.post('/api/search/details',{listing})
-  //   .then(details => {
-  //     console.log('Details returned client-side', details);
-  //     // sessionStorage.setItem('details', details.data);
-  //     // let savedDetails = sessionStorage.getItem('details');
-  //     // console.log(savedDetails);
-  //       this.setState({details: details.data});
-  //       // console.log(this.state.details.title, '<---- details saved');
-  //       this.changeView('details');
-  //   });
-  // }
+
   retrieveDetails(selected, listing){
+
     // console.log(selected);
     this.setState({
       details: this.state.rentals[selected]
@@ -119,38 +119,38 @@ class App extends React.Component {
     console.log(this.state.details);
   }
 
-  renderMain() {
-    if (this.state.view === 'rentals') {
-      return (
-        <div>
-         <Search search={this.searchProperties} /> 
-         <List retrieve={this.retrieveDetails} details={this.state.details} rentals={this.state.rentals} /> 
-        </div>
-      )
+  // renderMain() {
+  //   if (this.state.view === 'rentals') {
+  //     return (
+  //       <div>
+  //        <Search search={this.searchProperties} /> 
+  //        <List retrieve={this.retrieveDetails} details={this.state.details} rentals={this.state.rentals} /> 
+  //       </div>
+  //     )
         
-    }
-    if (this.state.view === 'savedRentals') {
-      return <SavedRentals saved={this.state.savedRentals} />
-    }
+  //   }
+  //   if (this.state.view === 'savedRentals') {
+  //     return <SavedRentals saved={this.state.savedRentals} />
+  //   }
 
-    if (this.state.view === 'login') {
-      return (
-        <div>
-          <Login />
-          <div onClick={() => this.changeView('signup')}>Signup!</div>
-        </div>
-      )
-    }
+  //   if (this.state.view === 'login') {
+  //     return (
+  //       <div>
+  //         <Login />
+  //         <div onClick={() => this.changeView('signup')}>Signup!</div>
+  //       </div>
+  //     )
+  //   }
 
-    if (this.state.view === 'signup') {
-      return <Signup/>
-    }
+  //   if (this.state.view === 'signup') {
+  //     return <Signup/>
+  //   }
 
-    if(this.state.view === 'details'){
-      return <Details details={this.state.details} />
-    }
+  //   if(this.state.view === 'details'){
+  //     return <Details details={this.state.details} />
+  //   }
 
-  }
+  // }
 
   render() {
     return (
@@ -169,8 +169,8 @@ class App extends React.Component {
             )
           }} />
           <Route path='/saved-rentals' render={(props) => <SavedRentals {...props} saved={this.state.savedRentals}/>}/>
-          <Route path='/login' component={Login}/>
-          <Route path='/signup' component={Signup}/>
+          <Route path='/login' render={(props) => <Login {...props} login={this.login} />}/>
+          <Route path='/signup' render={(props) => <Signup {...props} signup={this.signup} />}/>
           <Route path='/details' render={(props) => <Details {...props} details={this.state.details} />}/>
         </Switch>
         </div>

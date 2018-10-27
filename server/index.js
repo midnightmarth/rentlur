@@ -16,10 +16,12 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
 //Routes
 app.use('/api/search', search);
 app.use('/api/properties', db);
 app.use('/api', authRoutes);
+
 
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
@@ -30,7 +32,7 @@ app.get('/*', function(req, res) {
     }
   })
 })
-// parse application/json
+
 
 // Setup
 

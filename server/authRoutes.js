@@ -24,6 +24,7 @@ router.use(
   })
 );
 
+
 router.post('/login', passport.authenticate('local'), (req, res) => {
   console.log('Authenticated');
   //What do I send to let the client know it succeeded to login?
@@ -34,8 +35,9 @@ router.get('/logout', (req, res) => {
   console.log('requested to logout');
   res.end();
 });
+
 router.post('/signup', (req, res) => {
-  console.log("requested to signup");
+  console.log(req.body,'requested to signup');
   let password = req.body.password
   bcrypt.hash(password, 10, function (err, hash){
     //puit in db

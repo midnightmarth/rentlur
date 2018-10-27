@@ -60,11 +60,25 @@ input {
 	transition: 400ms ease all;
 	cursor: pointer;
 }
+.log-in-submit {
+  align-items: center;
+  font-size:0.8em;
+	justify-content: center;
+	display: inline-flex;
+	border: 1px solid white;
+	padding: 5px;
+	width: 100px;
+	color: white;
+	background-color: #85c6f1;
+	border-radius: 8px;
+	transition: 400ms ease all;
+	cursor: pointer;
+}
 
 .signup-block {
   display: inline-block;
   text-align: center;
-  margin: auto;
+  margin-top: 10px;
   position: absolute;
   left: 45%;
   right: 45%;
