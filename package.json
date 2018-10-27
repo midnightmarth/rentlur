@@ -32,10 +32,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^3.3.1",
-<<<<<<< HEAD
     "@material-ui/icons": "^3.0.1",
-=======
->>>>>>> carousel
     "all-the-cities": "^2.0.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
@@ -47,7 +44,6 @@
     "objection": "^1.4.0",
     "pg": "^7.5.0",
     "react": "^16.6.0",
-    "react-css-grid": "^2.0.0-0",
     "react-dom": "^16.6.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
