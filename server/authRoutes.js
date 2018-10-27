@@ -21,18 +21,16 @@ router.use(
   session({
     secret: "MemesAreCool",
     resave: false,
-    saveUninitialized: true,
-    cookie: {secure: true}
+    saveUninitialized: true
   })
 );
 
 router.post("/login", passport.authenticate("local"), (req, res) => {
   if ((req.authInfo.confirmation = "success")) {
-
-    res.send({data: req.authInfo.result});
+    res.send({ data: req.authInfo.result });
   } else {
     console.log("Failure to authenticate");
-    
+
     res.send({ data: "Failure" });
   }
 });
@@ -40,8 +38,9 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 router.get("/logout", (req, res) => {
   console.log("requested to logout");
   req.logout();
-  res.redirect('/');
+  res.redirect("/");
 });
+
 router.post("/signup", (req, res) => {
   console.log("requested to signup");
   let password = req.body.password;
