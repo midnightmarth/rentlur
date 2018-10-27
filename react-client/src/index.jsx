@@ -19,6 +19,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: '',
+      userId: 0,
       rentals: [],
       savedRentals:[
         {
@@ -50,6 +52,9 @@ class App extends React.Component {
     this.retrieveDetails = this.retrieveDetails.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
+    this.addFavorite = this.addFavorite.bind(this);
+    this.retrieveFavorites = this.retrieveFavorites.bind(this);
+    this.deleteFavorite = this.deleteFavorite.bind(this);
   }
  
   // to be completed later
@@ -71,6 +76,12 @@ class App extends React.Component {
     axios.post('/api/login', {username: usr, password: pss})
     .then ((response)=> {
       console.log(response);
+      this.setState({
+        username: response.data.data.username,
+        userId: response.data.data.id
+      }, () => {
+        console.log(this.state.username, this.state.userId);
+      });
     });
   }
   signup(usr, pss) {
@@ -96,12 +107,10 @@ class App extends React.Component {
 // }
 
 
-  retrieveFavorites(user_id) {
-    axios.get(`api/properties/${user_id}`)
-    .then(result => this.setState({savedRentals: result.property}))
-  }
+  
 
-  addFavorite(property, user_id) {
+  addFavorite(property, user_id = this.state.userId) {
+    console.log(user_id);
     axios.post(`api/properties/${user_id}`, property)
     .then(result => console.log(result))
   }
@@ -111,7 +120,14 @@ class App extends React.Component {
     .then(result => console.log(result))
   }
 
-
+  retrieveFavorites(user_id = this.state.userId) {
+    console.log(this.state.username);
+    axios.get(`api/properties/${user_id}`)
+    .then(result => {
+      this.setState({savedRentals: result.data.property});
+    })
+  }
+  
   retrieveDetails(selected, listing){
 
     // console.log(selected);
@@ -134,56 +150,24 @@ class App extends React.Component {
     console.log(this.state.details);
   }
 
-  // renderMain() {
-  //   if (this.state.view === 'rentals') {
-  //     return (
-  //       <div>
-  //        <Search search={this.searchProperties} /> 
-  //        <List retrieve={this.retrieveDetails} details={this.state.details} rentals={this.state.rentals} /> 
-  //       </div>
-  //     )
-        
-  //   }
-  //   if (this.state.view === 'savedRentals') {
-  //     return <SavedRentals saved={this.state.savedRentals} />
-  //   }
-
-  //   if (this.state.view === 'login') {
-  //     return (
-  //       <div>
-  //         <Login />
-  //         <div onClick={() => this.changeView('signup')}>Signup!</div>
-  //       </div>
-  //     )
-  //   }
-
-  //   if (this.state.view === 'signup') {
-  //     return <Signup/>
-  //   }
-
-  //   if(this.state.view === 'details'){
-  //     return <Details details={this.state.details} />
-  //   }
-
-  // }
 
   render() {
     return (
 
       <BrowserRouter>
       <div>
-        <NavBar/>
+        <NavBar getFavs={this.retrieveFavorites}/>
         <div className='main'> 
         <Switch>
           <Route exact path='/' render={(props) => { 
             return (
               <div>
                 <Search {...props} search={this.searchProperties}/>
-                <List {...props} retrieve={this.retrieveDetails} details={this.state.details} rentals={this.state.rentals}/>
+                <List {...props} retrieve={this.retrieveDetails} details={this.state.details} rentals={this.state.rentals} fav={this.addFavorite}/>
               </div>
             )
           }} />
-          <Route path='/saved-rentals' render={(props) => <SavedRentals {...props} saved={this.state.savedRentals}/>}/>
+          <Route path='/saved-rentals' render={(props) => <SavedRentals {...props} saved={this.state.savedRentals} favs={this.retrieveFavorites}/>}/>
           <Route path='/login' render={(props) => <Login {...props} login={this.login} />}/>
           <Route path='/signup' render={(props) => <Signup {...props} signup={this.signup} />}/>
           <Route path='/details' render={(props) => <Details {...props} details={this.state.details} />}/>

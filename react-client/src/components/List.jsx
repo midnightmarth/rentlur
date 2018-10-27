@@ -40,7 +40,7 @@ class List extends React.Component {
         {' '}
     items.
         { this.props.rentals.map((rental, index) => 
-        <ListItem key={index} handleClick={this.handleClick} rental={rental} index={index}/>
+        <ListItem key={index} handleClick={this.handleClick} rental={rental} fav={this.props.fav} index={index}/>
         )}
       </div>
     )
