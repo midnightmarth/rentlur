@@ -26,13 +26,13 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.4",
     "eslint": "^5.7.0",
+    "express-handlebars": "*",
+    "express-validator": "*",
+    "passport-http": "*",
+    "passport-local": "^1.0.0",
     "prettier": "^1.14.3",
     "webpack": "^4.22.0",
-    "webpack-cli": "^3.1.2",
-    "passport-http": "*",
-    "passport-local": "*",
-    "express-handlebars": "*",
-    "express-validator": "*"
+    "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "auth0-js": "^9.8.1",
