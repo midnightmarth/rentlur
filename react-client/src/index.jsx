@@ -68,7 +68,7 @@ class App extends React.Component {
   }
 
   login(usr, pss) {
-    axios.post('/api/login', {user: usr, password: pss})
+    axios.post('/api/login', {username: usr, password: pss})
     .then ((response)=> {
       console.log(response);
     });
