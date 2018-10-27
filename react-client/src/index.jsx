@@ -71,6 +71,21 @@ class App extends React.Component {
     });
   }
 
+  retrieveFavorites(user_id) {
+    axios.get(`api/properties/${user_id}`)
+    .then(result => this.setState({savedRentals: result.property}))
+  }
+
+  addFavorite(property, user_id) {
+    axios.post(`api/properties/${user_id}`, property)
+    .then(result => console.log(result))
+  }
+
+  deleteFavorite(property_id, user_id) {
+    axios.delete(`api/properties/${user_id}/${property_id}`)
+    .then(result => console.log(result))
+  }
+
   // retrieveDetails(listing){
   //   axios.post('/api/search/details',{listing})
   //   .then(details => {
