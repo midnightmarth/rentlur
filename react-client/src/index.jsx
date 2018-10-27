@@ -73,6 +73,14 @@ class App extends React.Component {
       console.log(response);
     });
   }
+
+
+<!--   retrieveDetails(listing){
+    axios.post('/api/search/details',{listing}).then(details => {
+      console.log('Details returned client-side', details);
+      const combined = Object.assign(listing, details.data);
+      this.setState({details: combined});
+      this.changeView('details'); -->
   signup(usr, pss) {
     axios.post('/api/signup', {user: usr, password: pss})
     .then ((response)=> {

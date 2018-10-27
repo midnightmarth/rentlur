@@ -1,4 +1,5 @@
 import React from 'react';
+import ImgSlide from './image_slider/ImgSlide.jsx';
 
 class Details extends React.Component {
   constructor(props){
@@ -33,6 +34,7 @@ class Details extends React.Component {
       <div>
       {console.log(this.props.details)}
         <h2>{this.props.details.title}</h2>
+        <ImgSlide imgUrls={this.props.details.images}/>
         <ul>
           <li>Price: {this.props.details.price} </li>
           <li>Description: {this.props.details.description} </li>
