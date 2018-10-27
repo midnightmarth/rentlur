@@ -72,6 +72,8 @@ class App extends React.Component {
     });
   }
 
+
+
   login(usr, pss) {
     axios.post('/api/login', {username: usr, password: pss})
     .then ((response)=> {
@@ -85,27 +87,11 @@ class App extends React.Component {
     });
   }
   signup(usr, pss) {
-    axios.post('/api/signup', {user: usr, password: pss})
+    axios.post('/api/signup', {username: usr, password: pss})
     .then ((response)=> {
       console.log(response);
     });
   }
-
-
-// retrieveDetails(listing){
-//     axios.post('/api/search/details',{listing}).then(details => {
-//       console.log('Details returned client-side', details);
-//       const combined = Object.assign(listing, details.data);
-//       this.setState({details: combined});
-//       this.changeView('details');
-//   signup(usr, pss) {
-//     axios.post('/api/signup', {user: usr, password: pss})
-//     .then ((response)=> {
-//       console.log(response);
-//     });
-//   }
-// }
-
 
   
 
@@ -115,7 +101,8 @@ class App extends React.Component {
     .then(result => console.log(result))
   }
 
-  deleteFavorite(property_id, user_id) {
+  deleteFavorite(property_id, user_id = this.state.userId) {
+    property_id = Number(property_id);
     axios.delete(`api/properties/${user_id}/${property_id}`)
     .then(result => console.log(result))
   }
@@ -167,7 +154,7 @@ class App extends React.Component {
               </div>
             )
           }} />
-          <Route path='/saved-rentals' render={(props) => <SavedRentals {...props} saved={this.state.savedRentals} favs={this.retrieveFavorites}/>}/>
+          <Route path='/saved-rentals' render={(props) => <SavedRentals {...props} saved={this.state.savedRentals} favs={this.retrieveFavorites} delete={this.deleteFavorite}/>}/>
           <Route path='/login' render={(props) => <Login {...props} login={this.login} />}/>
           <Route path='/signup' render={(props) => <Signup {...props} signup={this.signup} />}/>
           <Route path='/details' render={(props) => <Details {...props} details={this.state.details} />}/>
