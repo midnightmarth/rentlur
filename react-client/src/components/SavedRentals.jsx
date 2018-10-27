@@ -44,34 +44,20 @@ class SavedRentals extends React.Component {
         }
       ]
     };
-    this.data = this.waitOnData(this.state.favs);
+    this.flag = false;
   }
 
+
+  componentDidUpdate() {
+    if (this.flag === false) {
+      this.setState({
+        favs: this.props.saved
+      },() => this.flag = true);
+    }
+  }
 
   componentDidMount() {
-    this.setState({
-      favs: this.props.saved
-    });
-  }
-
-
-  waitOnData(obj) {
-    if (!obj) {
-      return [{
-        "category": "austin.craigslist.org",
-        "date": "2018-10-24 11:04",
-        "hasPic": true,
-        "location": "(3011 Whitis Ave)",
-        "pid": "6726748723",
-        "price": "$1150",
-        "title": "Parks and Recreation, Walkabilty 100%",
-        "url": "https://austin.craigslist.org/apa/d/parks-and-recreation/6726748723.html"
-    }];
-    }
-    if (Array.isArray(obj)) {
-      console.log(obj)
-      return obj;
-    }
+    this.flag = false;
   }
 
   render() {
@@ -84,9 +70,8 @@ class SavedRentals extends React.Component {
                 <li key={index}>
                   <SavedRentalItem rental={item}/>
                 </li>
-                ))
+                )) 
               }
-              
             </ul>
           </div>
     
