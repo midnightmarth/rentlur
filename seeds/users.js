@@ -7,9 +7,9 @@ exports.seed = (knex, Promise) => {
     .then(() => knex("properties").del())
     .then(() =>
       knex("users").insert([
-        { id: 1, username: "Nik", password: bcrypt.hashSync("Meme1", 10) },
-        { id: 2, username: "John", password: bcrypt.hashSync("Meme2", 10) },
-        { id: 3, username: "Steven", password: bcrypt.hashSync("Meme3", 10) }
+        { id: 9998, username: "Nik", password: bcrypt.hashSync("Meme1", 10) },
+        { id: 9999, username: "John", password: bcrypt.hashSync("Meme2", 10) },
+        { id: 9997, username: "Steven", password: bcrypt.hashSync("Meme3", 10) }
       ])
     )
     .then(() =>
@@ -24,7 +24,7 @@ exports.seed = (knex, Promise) => {
             "https://austin.craigslist.org/apa/d/massive-closets-hardwoods/6716480754.html",
           date: "2018-10-24 11:04",
           hasPic: true,
-          user_id: "2"
+          user_id: "9999"
         },
         {
           id: 200,
@@ -36,7 +36,7 @@ exports.seed = (knex, Promise) => {
             "https://austin.craigslist.org/apa/d/parks-and-recreation/6726748723.html",
           date: "2018-10-24 11:04",
           hasPic: true,
-          user_id: "1"
+          user_id: "9999"
         }
       ])
     );
