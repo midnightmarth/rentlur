@@ -68,7 +68,7 @@ class SavedRentals extends React.Component {
               {
                 this.state.favs.map( (item, index) => (
                 <li key={index}>
-                  <SavedRentalItem rental={item}/>
+                  <SavedRentalItem rental={item} delete={this.props.delete}/>
                 </li>
                 )) 
               }
