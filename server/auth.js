@@ -37,7 +37,6 @@ passport.use(
             user = user[0];
             user.id = user.id;
             delete user.password;
-            console.log(user);
             done(null, user, { confirmation: "success", result: user });
           }else{
             done(err, null, { confirmation: "failure", result: null });
