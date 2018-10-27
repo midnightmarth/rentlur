@@ -29,12 +29,12 @@
     "express-handlebars": "*",
     "express-validator": "*",
     "passport-http": "*",
-    "passport-local": "^1.0.0",
     "prettier": "^1.14.3",
     "webpack": "^4.22.0",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "passport-local": "^1.0.0",
     "auth0-js": "^9.8.1",
     "all-the-cities": "^2.0.1",
     "axios": "^0.18.0",
