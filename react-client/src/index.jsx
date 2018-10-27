@@ -73,6 +73,12 @@ class App extends React.Component {
       console.log(response);
     });
   }
+  signup(usr, pss) {
+    axios.post('/api/signup', {user: usr, password: pss})
+    .then ((response)=> {
+      console.log(response);
+    });
+  }
 
 
 // retrieveDetails(listing){
