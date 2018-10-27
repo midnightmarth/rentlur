@@ -53,8 +53,6 @@ app.post('/api/properties', (req, res) => {
   res.end();
 });
 
-app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
-
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../react-client/dist/index.html'), function(err) {
     if (err) {

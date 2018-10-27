@@ -28,9 +28,9 @@ router.use(
 
 router.post("/login", passport.authenticate("local"), (req, res) => {
   if ((req.authInfo.confirmation = "success")) {
-    console.log("Authenticated");
+    console.log("Authenticated: ", req);
     //What do I send to let the client know it succeeded to login?
-    res.send({ data: "Authenticated" });
+    res.send({ data: "Authenticated", username: req.authInfo.id});
   } else {
     console.log("Failure to authenticate");
     
