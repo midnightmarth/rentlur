@@ -23,8 +23,6 @@ app.use('/api/properties', db);
 app.use('/api', authRoutes);
 
 
-  //Search Query construction
-
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
 app.get('/*', function(req, res) {

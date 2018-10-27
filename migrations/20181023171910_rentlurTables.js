@@ -6,7 +6,9 @@ exports.up = function (knex, Promise) {
       table.string('password');
     })
     .createTable('properties', (table) => {
-      table.string('pid').unique();//
+      table.increments('id').primary();
+      table.string('pid');//
+      table.string('category');
       table.string('location');//
       table.string('title');
       table.string('price');//

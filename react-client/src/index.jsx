@@ -81,8 +81,24 @@ class App extends React.Component {
   }
 
 
+  retrieveFavorites(user_id) {
+    axios.get(`api/properties/${user_id}`)
+    .then(result => this.setState({savedRentals: result.property}))
+  }
 
- retrieveDetails(selected, listing){
+  addFavorite(property, user_id) {
+    axios.post(`api/properties/${user_id}`, property)
+    .then(result => console.log(result))
+  }
+
+  deleteFavorite(property_id, user_id) {
+    axios.delete(`api/properties/${user_id}/${property_id}`)
+    .then(result => console.log(result))
+  }
+
+
+  retrieveDetails(selected, listing){
+
     // console.log(selected);
     this.setState({
       details: this.state.rentals[selected]
