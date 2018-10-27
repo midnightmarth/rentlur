@@ -1,11 +1,13 @@
 import React from 'react';
 import Image from './Image.jsx';
 import Arrow from './Arrow.jsx';
-import Grid from 'react-css-grid';
+import Grid from '@material-ui/core/Grid';
 
 export default class ImgSlide extends React.Component{
   constructor(props){
     super(props);
+
+    /// Change imageUrls to this.props.details.images in production
     this.state = {
       currentImgIndex: 0,
       imageUrls:    [ 'https://images.craigslist.org/00R0R_5GSFWyGeTBK_600x450.jpg',
@@ -43,15 +45,18 @@ export default class ImgSlide extends React.Component{
 
   render(){
     return (
-      <Grid width={100}>      
-        <div className="imgSlide">
-          <div><Image imgUrl={this.state.imageUrls[this.state.currentImgIndex]} /></div>
-          <span> <Arrow direction="right" onClick={this.nextSlide} /> <Arrow direction="left" onClick={this.previousSlide}/></span>
-          
-          
-         
-        
-        </div>
+      <Grid container spacing={24} justify="center">
+        <Grid>
+      <Image imgUrl={this.state.imageUrls[this.state.currentImgIndex]} />
+      </Grid>
+      <Grid container spacing={40} justify="center" alignContent="stretch">
+      <Grid item justify="left">
+        <Arrow direction="left" onClick={this.previousSlide}/>
+        </Grid>
+        <Grid item justify="right">
+        <Arrow direction="right" onClick={this.nextSlide} />
+        </Grid>
+      </Grid>
       </Grid>
 
   
