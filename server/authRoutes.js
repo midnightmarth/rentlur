@@ -22,7 +22,7 @@ router.use(
 );
 
 router.post('/login', (req, res) => {
-  console.log('requested to login');
+  console.log(req.body,'requested to login');
   res.end();
 });
 router.get('/logout', (req, res) => {
@@ -30,7 +30,7 @@ router.get('/logout', (req, res) => {
   res.end();
 });
 router.post('/signup', (req, res) => {
-  console.log('requested to signup');
+  console.log(req.body,'requested to signup');
   res.end();
 });
 
