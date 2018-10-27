@@ -18,16 +18,7 @@ class List extends React.Component {
      this.state = {
        selected: 0
      };
-     this.handleClick = this.handleClick.bind(this);
    }
-
-  handleClick(option, listing) {
-    console.log(option);
-    this.setState({
-      selected: option
-    });
-    this.props.retrieve(option, listing);
-  }
 
 
   render() { 
@@ -40,7 +31,7 @@ class List extends React.Component {
         {' '}
     items.
         { this.props.rentals.map((rental, index) => 
-        <ListItem key={index} handleClick={this.handleClick} rental={rental} fav={this.props.fav} index={index}/>
+        <ListItem key={index} retrieve={this.props.retrieve} rental={rental} fav={this.props.fav} index={index}/>
         )}
       </div>
     )
