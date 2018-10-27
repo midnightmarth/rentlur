@@ -102,9 +102,8 @@ class App extends React.Component {
   }
 
   deleteFavorite(property_id, user_id = this.state.userId) {
-    property_id = Number(property_id);
     axios.delete(`api/properties/${user_id}/${property_id}`)
-    .then(result => console.log(result))
+    .then(result => this.retrieveFavorites(user_id));
   }
 
   retrieveFavorites(user_id = this.state.userId) {
