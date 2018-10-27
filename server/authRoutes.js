@@ -12,7 +12,6 @@ const knex = getConnection();
 require("./auth");
 
 // authentication
-
 router.use(passport.initialize());
 router.use(passport.session());
 router.use(expressLogging(logger));
@@ -22,15 +21,17 @@ router.use(
   session({
     secret: "MemesAreCool",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {secure: true}
   })
 );
 
 router.post("/login", passport.authenticate("local"), (req, res) => {
   if ((req.authInfo.confirmation = "success")) {
-    console.log("Authenticated: ", req);
     //What do I send to let the client know it succeeded to login?
-    res.send({ data: "Authenticated", username: req.authInfo.id});
+    req.session.username = req.authInfo.id
+    console.log("Authenticated: ",res.passport);
+    res.send({data: req.authInfo.result});
   } else {
     console.log("Failure to authenticate");
     

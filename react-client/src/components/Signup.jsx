@@ -40,7 +40,7 @@ class Signup extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log(this.state.name, this.state.email, this.state.username, this.state.password);
+    this.props.signup(this.state.username, this.state.password);
     e.preventDefault();
     this.reset();
   }
@@ -58,10 +58,12 @@ class Signup extends React.Component {
     return (
       <div className='signup-block'>
         <form onSubmit={this.handleSubmit}>
-          <input value={this.state.name} onChange={this.onNameChange} placeholder= 'name'/><br/>
-          <input value={this.state.email} onChange={this.onEmailChange} placeholder= 'email'/> <br/>
+
+          {/* <input value={this.state.name} onChange={this.onNameChange} placeholder= 'name'/><br/>
+          <input value={this.state.email} onChange={this.onEmailChange} placeholder= 'email'/> <br/> */}
           <input type='username' value={this.state.username} onChange={this.onUserChange} placeholder= 'username'/> <br/>
           <input type='password'  value={this.state.password} onChange={this.onPssChange} placeholder= 'password'/> <br/>
+
           <input className='sign-up-submit' type='submit' value='Submit'/>
         </form>
       </div>
