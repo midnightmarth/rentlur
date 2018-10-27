@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 
 // components
 import Search from './components/Search.jsx';
@@ -78,22 +78,21 @@ class App extends React.Component {
   login(usr, pss) {
     axios.post('/api/login', {username: usr, password: pss})
     .then ((response)=> {
-      console.log(response);
       this.setState({
         username: response.data.data.username,
         userId: response.data.data.id
-      }, () => {
-        if (this.state.userId > 0) {
-          
-        }
-      });
-    });
+      })
+      return alert('Logged In Successfully!')
+    })
+    .catch((err) => alert('Incorrect username or password'));
   }
   signup(usr, pss) {
     axios.post('/api/signup', {username: usr, password: pss})
     .then ((response)=> {
-      console.log(response);
-    });
+      if (response.data.name) {
+        alert('username exists!');
+      }
+    })
   }
 
   logout() {
@@ -117,11 +116,10 @@ class App extends React.Component {
   }
 
   retrieveFavorites(user_id = this.state.userId) {
-    console.log(this.state.username);
     axios.get(`api/properties/${user_id}`)
     .then(result => {
       this.setState({savedRentals: result.data.property});
-    })
+    });
   }
 
 
