@@ -12,6 +12,9 @@ import Signup from './components/Signup.jsx';
 import NavBar from './components/NavBar.jsx';
 import Details from './components/Details.jsx';
 
+
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -45,70 +48,117 @@ class App extends React.Component {
     };
     this.searchProperties = this.searchProperties.bind(this);
     this.retrieveDetails = this.retrieveDetails.bind(this);
+    this.login = this.login.bind(this);
+    this.signup = this.signup.bind(this);
   }
  
   // to be completed later
-  componentDidMount() {
-
-  }
+  // componentDidMount(savedDetails) {
+  //   this.setState({details: savedDetails});
+  // }
 
   // requires routes
   searchProperties(searchQuery) {
 
- 
+
    console.log(searchQuery);
     axios.post('/api/search', {city: searchQuery}).then((response) => {
       this.setState({ rentals: response.data });
     });
   }
 
-  changeView(view) {
-    this.setState({
-      view: view
+  login(usr, pss) {
+    axios.post('/api/login', {user: usr, password: pss})
+    .then ((response)=> {
+      console.log(response);
     });
   }
 
-  retrieveDetails(listing){
+
+<!--   retrieveDetails(listing){
     axios.post('/api/search/details',{listing}).then(details => {
       console.log('Details returned client-side', details);
       const combined = Object.assign(listing, details.data);
       this.setState({details: combined});
-      this.changeView('details');
+      this.changeView('details'); -->
+  signup(usr, pss) {
+    axios.post('/api/signup', {user: usr, password: pss})
+    .then ((response)=> {
+      console.log(response);
     });
   }
 
-  renderMain() {
-    if (this.state.view === 'rentals') {
-      return (
-        <div>
-         <Search search={this.searchProperties} /> 
-         <List retrieve={this.retrieveDetails} details={this.state.details} rentals={this.state.rentals} /> 
-        </div>
-      )
-        
-    }
-    if (this.state.view === 'savedRentals') {
-      return <SavedRentals saved={this.state.savedRentals} />
-    }
 
-    if (this.state.view === 'login') {
-      return (
-        <div>
-          <Login />
-          <div onClick={() => this.changeView('signup')}>Signup!</div>
-        </div>
-      )
-    }
-
-    if (this.state.view === 'signup') {
-      return <Signup/>
-    }
-
-    if(this.state.view === 'details'){
-      return <Details details={this.state.details} />
-    }
-
+  retrieveFavorites(user_id) {
+    axios.get(`api/properties/${user_id}`)
+    .then(result => this.setState({savedRentals: result.property}))
   }
+
+  addFavorite(property, user_id) {
+    axios.post(`api/properties/${user_id}`, property)
+    .then(result => console.log(result))
+  }
+
+  deleteFavorite(property_id, user_id) {
+    axios.delete(`api/properties/${user_id}/${property_id}`)
+    .then(result => console.log(result))
+  }
+
+
+  retrieveDetails(selected, listing){
+
+    // console.log(selected);
+    this.setState({
+      details: this.state.rentals[selected]
+    });
+    axios.post('/api/search/details',{listing})
+    .then(details => {
+      console.log('Details returned client-side', details);
+      const combined = Object.assign(details.data, this.state.rentals[selected])
+      // console.log(combined);
+      // sessionStorage.setItem('details',  details.data);
+      // let savedDetails = sessionStorage.getItem('details');
+      //  let reassign = this.state.rentals[selected];
+      this.setState({details: combined});
+
+      console.log(this.state.details.title, '<---- details saved');
+ 
+    });
+    console.log(this.state.details);
+  }
+
+  // renderMain() {
+  //   if (this.state.view === 'rentals') {
+  //     return (
+  //       <div>
+  //        <Search search={this.searchProperties} /> 
+  //        <List retrieve={this.retrieveDetails} details={this.state.details} rentals={this.state.rentals} /> 
+  //       </div>
+  //     )
+        
+  //   }
+  //   if (this.state.view === 'savedRentals') {
+  //     return <SavedRentals saved={this.state.savedRentals} />
+  //   }
+
+  //   if (this.state.view === 'login') {
+  //     return (
+  //       <div>
+  //         <Login />
+  //         <div onClick={() => this.changeView('signup')}>Signup!</div>
+  //       </div>
+  //     )
+  //   }
+
+  //   if (this.state.view === 'signup') {
+  //     return <Signup/>
+  //   }
+
+  //   if(this.state.view === 'details'){
+  //     return <Details details={this.state.details} />
+  //   }
+
+  // }
 
   render() {
     return (
@@ -127,8 +177,8 @@ class App extends React.Component {
             )
           }} />
           <Route path='/saved-rentals' render={(props) => <SavedRentals {...props} saved={this.state.savedRentals}/>}/>
-          <Route path='/login' component={Login}/>
-          <Route path='/signup' component={Signup}/>
+          <Route path='/login' render={(props) => <Login {...props} login={this.login} />}/>
+          <Route path='/signup' render={(props) => <Signup {...props} signup={this.signup} />}/>
           <Route path='/details' render={(props) => <Details {...props} details={this.state.details} />}/>
         </Switch>
         </div>

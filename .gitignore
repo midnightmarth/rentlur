@@ -1,4 +1,8 @@
 node_modules
+package-lock.json
+.eslintrc.json
+react-client
+credentials.js
 .eslintrc.js
 react-client/dist/bundle.js
 package-lock.json
