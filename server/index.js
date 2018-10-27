@@ -20,28 +20,6 @@ app.use(bodyParser.json());
 app.use('/api/search', search);
 app.use('/api/properties', db);
 app.use('/api', authRoutes);
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../react-client/dist'));
-});
-
-app.post('/api/:UserId', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
-
-app.get('/api/:UserId', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
-
-app.delete('/api/:UserId', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
-app.post('/api/properties', (req, res) => {
-  console.log(req.body);
-  res.end();
-});
 
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
@@ -53,8 +31,6 @@ app.get('/*', function(req, res) {
   })
 })
 // parse application/json
-
-app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
 // Setup
 
