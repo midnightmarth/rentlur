@@ -1,11 +1,10 @@
-import React from "react";
-
+import React from 'react';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: ''
+      location: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -13,24 +12,24 @@ class Search extends React.Component {
     this.reset = this.reset.bind(this);
   }
 
-  // set state
-  changeState(loc) {
-    this.setState({
-      location: loc
-    });
-
-  }
-
-  handleSubmit(e) {
-    console.log(this.state.location)
-    this.props.search(this.state.location)
-    e.preventDefault();
-  }
-
   // set state while typing
   onChange(e) {
     this.changeState(e.target.value);
   }
+
+  // set state
+  changeState(loc) {
+    this.setState({
+      location: loc,
+    });
+  }
+
+  handleSubmit(e) {
+    console.log(this.state.location);
+    this.props.search(this.state.location);
+    e.preventDefault();
+  }
+
 
   // set state on "return" key
   // onKeyPress(e) {
@@ -49,17 +48,22 @@ class Search extends React.Component {
   }
 
   render() {
-    return ( 
+    return (
       <div>
         <h4> Search </h4>
         <form onSubmit={this.handleSubmit}>
-          Enter a location: <input value = {this.state.location} onChange = {this.onChange}  placeholder='type in location'/>        
-          <input className='submit' type='submit' value='Search'/>
+          Enter a location:
+          {' '}
+          <input
+            value={this.state.location}
+            onChange={this.onChange}
+            placeholder="type in location"
+          />
+          <input className="submit" type="submit" value="Search" />
         </form>
       </div>
-    )
+    );
   }
 }
 
-
-export default Search
+export default Search;

@@ -18,7 +18,12 @@
 }
 
 .usr-pss {
-  margin: 15px;
+  display: inline-block;
+  text-align: center;
+  margin-top: 10px;
+  position: absolute;
+  left: 45%;
+  right: 45%;
 }
 
 input {

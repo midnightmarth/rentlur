@@ -1,44 +1,41 @@
-
-//Modules
+// Modules
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-//Local Files
+// Local Files
 
 const search = require('./search.js');
 const authRoutes = require('./authRoutes.js');
 const db = require('./db.js');
 
-require('dotenv').config()
+require('dotenv').config();
+
 const app = express();
 
-//Middleware
+// Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
-//Routes
+// Routes
 app.use('/api/search', search);
 app.use('/api/properties', db);
 app.use('/api', authRoutes);
 
-
 app.use(express.static(path.resolve(__dirname, '../react-client/dist')));
 
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '../react-client/dist/index.html'), function(err) {
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../react-client/dist/index.html'), (err) => {
     if (err) {
       res.status(500).send(err);
     }
-  })
-})
-
+  });
+});
 
 // Setup
 
 let port = process.env.PORT;
-if (port == null || port == "") {
+if (port == null || port === '') {
   port = 3000;
 }
 app.listen(port, () => {

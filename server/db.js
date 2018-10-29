@@ -1,28 +1,31 @@
 const express = require('express');
-const { User, Property } = require('../models/schema');
+const { User } = require('../models/schema');
+
 const router = express.Router();
-require('dotenv').config()
+require('dotenv').config();
 
 router.get('/:UserId', (req, res) => {
-  User.query().findById(req.params.UserId).eager('property')
-  .then(result => res.json(result))
+  User.query()
+    .findById(req.params.UserId)
+    .eager('property')
+    .then(result => res.json(result));
 });
 
 router.post('/:UserId', async (req, res) => {
-  const user = await User.query().findById(req.params.UserId)
+  const user = await User.query().findById(req.params.UserId);
   await console.log(req.body);
-  await user.$relatedQuery('property')
+  await user
+    .$relatedQuery('property')
     .allowInsert('[pid, location, title, price, url, hasPic, date, category]')
-    .insert(req.body)
+    .insert(req.body);
 
-   res.send('Complete');
+  res.send('Complete');
 });
 
 router.delete('/:UserId/:propertyId', async (req, res) => {
-  const user = await User.query().findById(req.params.UserId)
-  await user.$relatedQuery('property')
-    .deleteById(req.params.propertyId)
-  res.send('Deleted')
+  const user = await User.query().findById(req.params.UserId);
+  await user.$relatedQuery('property').deleteById(req.params.propertyId);
+  res.send('Deleted');
 });
 
 module.exports = router;

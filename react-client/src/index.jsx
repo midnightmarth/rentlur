@@ -22,7 +22,7 @@ class App extends React.Component {
       username: '',
       userId: 0,
       rentals: [],
-      savedRentals:[
+      savedRentals: [
         {
             "category": "austin.craigslist.org",
             "date": "2018-10-24 11:04",

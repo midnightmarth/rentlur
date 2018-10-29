@@ -13,29 +13,34 @@ import ListItem from './ListItem.jsx';
 //   </div>
 // );
 class List extends React.Component {
-   constructor(props) {
-     super(props);
-     this.state = {
-       selected: 0
-     };
-   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      // selected: 0,
+    };
+  }
 
-
-  render() { 
+  render() {
     return (
       <div>
         <h4> List Component </h4>
         There are
         {' '}
-        { this.props.rentals.length }
+        {this.props.rentals.length} 
         {' '}
-    items.
-        { this.props.rentals.map((rental, index) => 
-        <ListItem key={index} retrieve={this.props.retrieve} rental={rental} fav={this.props.fav} index={index}/>
-        )}
+        items.
+        {this.props.rentals.map((rental, index) => (
+          <ListItem
+            key={index}
+            retrieve={this.props.retrieve}
+            rental={rental}
+            fav={this.props.fav}
+            index={index}
+          />
+        ))}
       </div>
-    )
+    );
   }
-};
+}
 
 export default List;

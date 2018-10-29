@@ -14,19 +14,17 @@ class Login extends React.Component {
     this.reset = this.reset.bind(this);
   }
 
-
   onUserChange(e) {
     this.setState({
-      username: e.target.value
+      username: e.target.value,
     });
   }
 
   onPassChange(e) {
     this.setState({
-      password: e.target.value
+      password: e.target.value,
     });
   }
-  
 
   handleSubmit(e) {
     this.props.login(this.state.username, this.state.password);
@@ -34,30 +32,41 @@ class Login extends React.Component {
     this.reset();
   }
 
-  reset () {
+  reset() {
     this.setState({
       username: '',
-      password: ''
+      password: '',
     });
   }
 
-
   render() {
     return (
-      <div className='usr-pss'>
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          username: <input type='username' value={this.state.username} onChange={this.onUserChange} placeholder='username'/>
-        </div>
-        <div>
-          password: <input type= "password" value={this.state.password} onChange={this.onPassChange} placeholder='password'/>
-        </div>
-        <input className='log-in-submit' type='submit' value='Submit'/>
+      <div className="usr-pss">
+        <h1>Login</h1>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            {' '}
+            <input
+              type="username"
+              value={this.state.username}
+              onChange={this.onUserChange}
+              placeholder="username"
+            />
+          </div>
+          <div>
+            {' '}
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={this.onPassChange}
+              placeholder="password"
+            />
+          </div>
+          <input className="log-in-submit" type="submit" value="Submit" />
         </form>
       </div>
-    )
+    );
   }
 }
 
-
-export default Login
+export default Login;
