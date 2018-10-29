@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 
 // components
 import Search from './components/Search.jsx';
@@ -52,6 +52,7 @@ class App extends React.Component {
     this.retrieveDetails = this.retrieveDetails.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
+    this.logout = this.logout.bind(this);
     this.addFavorite = this.addFavorite.bind(this);
     this.retrieveFavorites = this.retrieveFavorites.bind(this);
     this.deleteFavorite = this.deleteFavorite.bind(this);
@@ -72,40 +73,34 @@ class App extends React.Component {
     });
   }
 
+
+
   login(usr, pss) {
     axios.post('/api/login', {username: usr, password: pss})
     .then ((response)=> {
-      console.log(response);
       this.setState({
         username: response.data.data.username,
         userId: response.data.data.id
-      }, () => {
-        console.log(this.state.username, this.state.userId);
-      });
-    });
+      })
+      return alert('Logged In Successfully!')
+    })
+    .catch((err) => alert('Incorrect username or password'));
   }
   signup(usr, pss) {
-    axios.post('/api/signup', {user: usr, password: pss})
+    axios.post('/api/signup', {username: usr, password: pss})
     .then ((response)=> {
-      console.log(response);
-    });
+      if (response.data.name) {
+        alert('username exists!');
+      }
+    })
   }
 
-
-// retrieveDetails(listing){
-//     axios.post('/api/search/details',{listing}).then(details => {
-//       console.log('Details returned client-side', details);
-//       const combined = Object.assign(listing, details.data);
-//       this.setState({details: combined});
-//       this.changeView('details');
-//   signup(usr, pss) {
-//     axios.post('/api/signup', {user: usr, password: pss})
-//     .then ((response)=> {
-//       console.log(response);
-//     });
-//   }
-// }
-
+  logout() {
+    this.setState({
+      username: '',
+      userId: 0
+    });
+  }
 
   
 
@@ -115,29 +110,29 @@ class App extends React.Component {
     .then(result => console.log(result))
   }
 
-  deleteFavorite(property_id, user_id) {
+  deleteFavorite(property_id, user_id = this.state.userId) {
     axios.delete(`api/properties/${user_id}/${property_id}`)
-    .then(result => console.log(result))
+    .then(result => this.retrieveFavorites(user_id));
   }
 
   retrieveFavorites(user_id = this.state.userId) {
-    console.log(this.state.username);
     axios.get(`api/properties/${user_id}`)
     .then(result => {
       this.setState({savedRentals: result.data.property});
-    })
+    });
   }
-  
-  retrieveDetails(selected, listing){
 
-    // console.log(selected);
+
+  
+  retrieveDetails(listing){
+
     this.setState({
-      details: this.state.rentals[selected]
+      details: listing
     });
     axios.post('/api/search/details',{listing})
     .then(details => {
       console.log('Details returned client-side', details);
-      const combined = Object.assign(details.data, this.state.rentals[selected])
+      const combined = Object.assign(details.data, listing);
       // console.log(combined);
       // sessionStorage.setItem('details',  details.data);
       // let savedDetails = sessionStorage.getItem('details');
@@ -145,9 +140,7 @@ class App extends React.Component {
       this.setState({details: combined});
 
       console.log(this.state.details.title, '<---- details saved');
- 
     });
-    console.log(this.state.details);
   }
 
 
@@ -156,7 +149,7 @@ class App extends React.Component {
 
       <BrowserRouter>
       <div>
-        <NavBar getFavs={this.retrieveFavorites}/>
+        <NavBar getFavs={this.retrieveFavorites} user={this.state.userId} logout={this.logout}/>
         <div className='main'> 
         <Switch>
           <Route exact path='/' render={(props) => { 
@@ -167,7 +160,7 @@ class App extends React.Component {
               </div>
             )
           }} />
-          <Route path='/saved-rentals' render={(props) => <SavedRentals {...props} saved={this.state.savedRentals} favs={this.retrieveFavorites}/>}/>
+          <Route path='/saved-rentals' render={(props) => <SavedRentals {...props} saved={this.state.savedRentals} favs={this.retrieveFavorites} details={this.retrieveDetails} delete={this.deleteFavorite}/>}/>
           <Route path='/login' render={(props) => <Login {...props} login={this.login} />}/>
           <Route path='/signup' render={(props) => <Signup {...props} signup={this.signup} />}/>
           <Route path='/details' render={(props) => <Details {...props} details={this.state.details} />}/>

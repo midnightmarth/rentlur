@@ -44,20 +44,16 @@ class SavedRentals extends React.Component {
         }
       ]
     };
-    this.flag = false;
   }
 
 
   componentDidUpdate() {
-    if (this.flag === false) {
+    if (this.state.favs !== this.props.saved) {
+      console.log('mounting yeahhh well updating')
       this.setState({
         favs: this.props.saved
-      },() => this.flag = true);
+      });
     }
-  }
-
-  componentDidMount() {
-    this.flag = false;
   }
 
   render() {
@@ -68,7 +64,7 @@ class SavedRentals extends React.Component {
               {
                 this.state.favs.map( (item, index) => (
                 <li key={index}>
-                  <SavedRentalItem rental={item}/>
+                  <SavedRentalItem rental={item} details={this.props.details} delete={this.props.delete} index={index}/>
                 </li>
                 )) 
               }
