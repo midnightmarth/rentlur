@@ -54,9 +54,12 @@ router.post("/signup", (req, res) => {
     console.log("encrypting password: ", password);
     knex("users")
       .insert([{ username: username, password: hash }])
-      .catch(err => console.log(err));
+      .catch((err) => {
+        res.status(401)
+        res.send('None shall pass')
+      });
   });
-  res.end();
+  // res.end();
 });
 
 module.exports = router;

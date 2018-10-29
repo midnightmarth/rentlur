@@ -31,7 +31,7 @@ passport.use(
 
           return done(null, false, { message: "Incorrect username." });
         }
-        bcrypt.compare(password, user[0].password, function(err, res) {
+        bcrypt.compare(password, user[0].password, function(err, res) {   
           console.log(res);
           if(res){
             user = user[0];
